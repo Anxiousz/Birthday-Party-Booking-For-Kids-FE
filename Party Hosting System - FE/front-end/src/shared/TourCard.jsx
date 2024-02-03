@@ -24,7 +24,7 @@ const TourCard = ({ tour }) => {
               {city}
             </span>
             <span className="tour__rating d-flex align-items-center gap-1">
-              <i class="ri-star-line"></i>
+              <i className="ri-star-s-fill"></i>
               {avgRating === 0 ? null : avgRating}
               {totalRating === 0 ? (
                 "Not rated"
