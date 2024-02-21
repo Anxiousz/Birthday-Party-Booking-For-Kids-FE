@@ -19,6 +19,7 @@ const Routers = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/thank-you" element={<ThankYou />} />
       <Route path="/tour/search" element={<SearchResultList />} />
+      <Route path="/login/roll-selection" /* chờ roll-selection bên Page xong sẽ thêm element */ /> 
     </Routes>
   );
 };

@@ -1,12 +1,12 @@
 [
     {
-      "title": "Westminister Bridge",
-      "city": "London",
-      "address": "Somewhere in London",
+      "title": "Truffle",
+      "city": "Viet Nam",
+      "address": "L73 Landmark, 720A Dien Bien Phu, Ward 22, Binh Thanh, City. Ho Chi Minh",
       "distance": 300,
-      "price": 99,
-      "maxGroupSize": 10,
-      "desc": "this is the description",
+      "price": 115,
+      "maxGroupSize": 100,
+      "desc": "The French restaurant space is perfect for any occasion. Whether you want to celebrate a birthday, plan a romantic date, or hold an important business meeting, “Truffle” offers a space that meets every need.",
       "reviews": [],
   
       "photo": "/tour-images/tour-img01.jpg",

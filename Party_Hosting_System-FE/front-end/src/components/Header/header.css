@@ -5,7 +5,9 @@
 }
 
 .logo img{
-    width: 30%;
+    width: 12%;
+    height: 12%;
+    border-radius: 50%;
 }
 
 .menu{

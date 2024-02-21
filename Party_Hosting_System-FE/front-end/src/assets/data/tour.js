@@ -1,4 +1,4 @@
-import tourImg01 from "../images/tour-img01.jpg";
+import tourImg01 from "../images/tour-img01.png";
 import tourImg02 from "../images/tour-img02.jpg";
 import tourImg03 from "../images/tour-img03.jpg";
 import tourImg04 from "../images/tour-img04.jpg";
@@ -9,13 +9,13 @@ import tourImg07 from "../images/tour-img07.jpg";
 const tours = [
   {
     id: "01",
-    title: "Westminister Bridge",
-    city: "London",
-    address: "Tester",
+    title: "Truffle",
+    city: "Viet Nam",
+    address: "L73 Landmark, 720A Dien Bien Phu, Ward 22, Binh Thanh, City. Ho Chi Minh",
     distance: 300,
-    price: 99,
-    maxGroupSize: 10,
-    desc: "this is the description",
+    price: 115,
+    maxGroupSize: 100,
+    desc: "The French restaurant space is perfect for any occasion. Whether you want to celebrate a birthday, plan a romantic date, or hold an important business meeting, “Truffle” offers a space that meets every need.",
     reviews: [
       {
         name: "jhon doe",
