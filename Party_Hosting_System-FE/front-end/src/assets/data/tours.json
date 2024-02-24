@@ -13,29 +13,29 @@
       "featured": true
     },
     {
-      "title": "Bali, Indonesia",
-      "city": "Bali",
-      "address": "Somewhere in Indonesia",
+      "title": "SEI Dining",
+      "city": "Viet Nam",
+      "address": "13-15-17 Dong Khoi, Ben Nghe Ward, District 1, City. Ho Chi Minh",
       "distance": 400,
-      "price": 99,
-      "maxGroupSize": 8,
-      "desc": "this is the description",
+      "price": 20,
+      "maxGroupSize": 150,
+      "desc": "With a prime location on the frontage of Dong Khoi Street and possessing a spacious, luxurious and private space. SEI Dining Lounge provides and fully meets your party organization needs, from private personal parties to group, corporate, and business parties.",
       "reviews": [],
   
-      "photo": "/tour-images/tour-img02.jpg",
+      "photo": "/tour-images/tour-img02.png",
       "featured": true
     },
     {
-      "title": "Snowy Mountains, Thailand",
-      "city": "Bangkok",
-      "address": "Somewhere in Thailand",
+      "title": "ROS Yacht Club",
+      "city": "Viet Nam",
+      "address": "Bach Dang Wharf, 10B Ton Duc Thang Street, Ben Nghe, District 1, City. Ho Chi Minh",
       "distance": 500,
-      "price": 99,
+      "price": 48,
       "maxGroupSize": 8,
-      "desc": "this is the description",
+      "desc": "ROS not only owns a million-dollar yacht but also a riverside restaurant located in a prime location in the center of District 1, right at Bach Dang wharf. The space is large, airy, from indoors to outside in the garden and the table area close to the railing with a view of the Saigon River is a romantic place loved by diners every time they come. ROS is proud to be a restaurant with a classy space for your private year-end party.",
       "reviews": [],
   
-      "photo": "/tour-images/tour-img03.jpg",
+      "photo": "/tour-images/tour-img03.png",
       "featured": true
     },
     {
