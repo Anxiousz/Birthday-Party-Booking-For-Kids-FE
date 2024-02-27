@@ -5,13 +5,21 @@
 
 .login__img img {
     width: 70%;
-    object-fit: contain;
+    object-fit: relative;
 }
 
-.login__form {
-    padding: 50px;
+
+.login__container .login__form {
+    padding: 40px;
+    padding-top: 80px;
     background: var(--secondary-color);
     position: relative;
+}
+
+.register-form .login__form {
+  padding-top: 100px;
+  background: var(--secondary-color);
+  position: relative;
 }
 
 .login__container {
@@ -30,6 +38,7 @@
 
 .login__form .user img {
     width: 100%;
+    margin-top: 45%;
 }
 
 .login__form h2 {
@@ -49,6 +58,12 @@
     border: none;
     font-size: 1rem;
     color: var(--heading-color);
+}
+
+.option{
+    margin-bottom: 1rem;
+    align-items: center;
+
 }
 
 .login__form input:focus{
@@ -73,6 +88,13 @@
     text-decoration: #fff;
     margin-left: 5px;
     font-weight: 500;
+}
+
+.register-form .change-page a {
+    color:var(--heading-color);
+    text-decoration: #fff;
+    font-weight: 500;
+
 }
 
 /* register form */

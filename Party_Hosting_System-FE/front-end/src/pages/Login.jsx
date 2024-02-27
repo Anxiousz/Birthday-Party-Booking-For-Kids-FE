@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, FormGroup, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import "../styles/login.css";
+import { DropdownButton, Dropdown } from "react-bootstrap";
+import Select from "react-select";
 
 import loginImg from "../assets/images/login.png";
 import userIcon from "../assets/images/user.png";
@@ -19,6 +21,11 @@ const Login = () => {
   const handleClick = (e) => {
     e.preventDefault();
   };
+  const option = [
+    { value: "user", label: "User" },
+    { value: "host", label: "Host" },
+    { value: "admin", label: "Admin"}
+  ];
 
   return (
     <section>
@@ -53,6 +60,7 @@ const Login = () => {
                       onChange={handleChange}
                     />
                   </FormGroup>
+                  <Select className="option" options={option}></Select>
                   <Button
                     className="btn secondary__btn auth__btn"
                     type="submit"

@@ -17,8 +17,11 @@ const Register = () => {
   const [values, setValues] = useState({
     fullName: "",
     phoneNumber: "",
+    username: "",
+    password: "",
     address: "",
     email: "",
+    dateOfBirth: "",
   });
   const handleInputChange = (event) => {
     /* event.persist(); NO LONGER USED IN v.17*/
@@ -60,60 +63,6 @@ const Register = () => {
     <section>
       <Container>
         <Row>
-          <Col lg="8" className="m-auto">
-            <div className="login__container d-flex justify-content-between">
-              <div className="login__img">
-                <img src={registerImg} alt="" />
-              </div>
-              <div className="login__form">
-                <div className="user">
-                  <img src={userIcon} alt="" />
-                </div>
-                <h2>Register</h2>
-                <Form onSubmit={handleClick}>
-                  <FormGroup>
-                    <input
-                      type="text"
-                      placeholder="Username"
-                      required
-                      id="username"
-                      onChange={handleChange}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      required
-                      id="email"
-                      onChange={handleChange}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      required
-                      id="password"
-                      onChange={handleChange}
-                    />
-                  </FormGroup>
-                  <Button
-                    className="btn secondary__btn auth__btn"
-                    type="submit"
-                  >
-                    Create Account
-                  </Button>
-                </Form>
-                <p>
-                  Already have an account? <Link to="/login">Login</Link>
-                </p>
-              </div>
-            </div>
-          </Col>
-        </Row>
-
-        <Row>
           <Col /*form đăng kí */>
             <div className="form-container">
               <form
@@ -124,13 +73,17 @@ const Register = () => {
               >
                 {submitted && valid && (
                   <div className="success-message">
-                    <h3>
-                      {" "}
-                      Welcome {values.fullName} {values.phoneNumber}{" "}
-                    </h3>
+                    <h3> Welcome {values.fullName} </h3>
                     <div> Your registration was successful! </div>
                   </div>
                 )}
+
+                <div className="login__form">
+                  <div className="user">
+                    <img src={userIcon} alt="" />
+                  </div>
+                  <h2>Register</h2>
+                </div>
 
                 {!valid && (
                   <input
@@ -151,6 +104,36 @@ const Register = () => {
                   <input
                     class="form-field"
                     type="text"
+                    placeholder="Username"
+                    name="username"
+                    value={values.username}
+                    onChange={handleInputChange}
+                  />
+                )}
+
+                {submitted && !values.username && (
+                  <span id="last-name-error">Please enter your username</span>
+                )}
+
+                {!valid && (
+                  <input
+                    class="form-field"
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    value={values.password}
+                    onChange={handleInputChange}
+                  />
+                )}
+
+                {submitted && !values.password && (
+                  <span id="last-name-error">Please enter your password</span>
+                )}
+
+                {!valid && (
+                  <input
+                    class="form-field"
+                    type="text"
                     placeholder="Phone Number"
                     name="phoneNumber"
                     value={values.phoneNumber}
@@ -162,6 +145,21 @@ const Register = () => {
                   <span id="last-name-error">
                     Please enter your phone number
                   </span>
+                )}
+
+                {!valid && (
+                  <input
+                    class="form-field"
+                    type="date"
+                    placeholder="Date of Birth"
+                    name="dateOfBirth"
+                    value={values.dateOfBirth}
+                    onChange={handleInputChange}
+                  />
+                )}
+
+                {submitted && !values.dateOfBirth && (
+                  <span id="full-name-error">Please enter your date of birth</span>
                 )}
 
                 {!valid && (
