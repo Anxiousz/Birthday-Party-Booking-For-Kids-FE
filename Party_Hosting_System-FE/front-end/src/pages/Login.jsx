@@ -60,7 +60,8 @@ const Login = () => {
                       onChange={handleChange}
                     />
                   </FormGroup>
-                  <Select className="option" options={option}></Select>
+                  <Select className="option" options={option}
+                  /* cái này là bảng dropdown để chọn roll*/></Select>
                   <Button
                     className="btn secondary__btn auth__btn"
                     type="submit"

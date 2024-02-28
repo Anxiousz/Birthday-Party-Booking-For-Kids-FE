@@ -159,7 +159,9 @@ const Register = () => {
                 )}
 
                 {submitted && !values.dateOfBirth && (
-                  <span id="full-name-error">Please enter your date of birth</span>
+                  <span id="full-name-error">
+                    Please enter your date of birth
+                  </span>
                 )}
 
                 {!valid && (
