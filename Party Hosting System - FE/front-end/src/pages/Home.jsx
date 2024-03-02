@@ -8,7 +8,10 @@ import heroVideo from "../assets/images/hero-video.mp4";
 import worldImg from "../assets/images/world.png";
 import Subtitle from "./../shared/Subtitle";
 import experienceImg from "../assets/images/experience.png";
-
+import party1 from "../assets/images/birthday-parties-1.jpg";
+import party2 from "../assets/images/party-2.avif";
+import partyVideo from "../assets/images/party-video.mp4";
+import birthdaycake from "../assets/images/birthday-cake.png";
 import { SearchBar } from "../shared/SearchBar";
 import { ServiceList } from "../services/ServiceList";
 import { FeatureTourList } from "../components/Featured-tours/FeatureTourList";
@@ -30,30 +33,29 @@ const Home = () => {
                   <img src={worldImg} alt="" />
                 </div>
                 <h1>
-                  Travling opens the door to creating
-                  <span className="highlight">memories</span>
+                  Record your 
+                  <span className="highlight"> memories</span> with Us
                 </h1>
                 <p>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Distinctio repudiandae fugiat laborum incidunt dicta aliquid
-                  commodi sit corrupti, deleniti minus suscipit ea delectus
-                  alias laboriosam, odit molestias expedita molestiae nihil?
+                We help you book your birthday party quickly and easily. 
+                With just a few simple steps, you can choose the location, 
+                decoration service, menu,... that suits your needs.
                 </p>
               </div>
             </Col>
             <Col lg="2">
               <div className="hero__img-box">
-                <img src={heroImg} alt="" />
+                <img src={party1} alt="" />
               </div>
             </Col>
             <Col lg="2">
               <div className="hero__img-box mt-4">
-                <video src={heroVideo} alt="" controls />
+                <video src={partyVideo} alt="" controls />
               </div>
             </Col>
             <Col lg="2">
               <div className="hero__img-box mt-5">
-                <img src={heroImg02} alt="" />
+                <img src={party2} alt="" />
               </div>
             </Col>
             <SearchBar />
@@ -80,7 +82,7 @@ const Home = () => {
           <Row>
             <Col lg="12" className="mb-5">
               <Subtitle subtitle={"Explore"} />
-              <h2 className="featured__tour-title">Our featured tours</h2>
+              <h2 className="featured__tour-title">Our featured places</h2>
             </Col>
             <FeatureTourList />
           </Row>
