@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
-import "./tour-card.css";
+import "./place-card.css";
 import calculateAvgRating from "../utils/avgRating";
 
 const TourCard = ({ tour }) => {
@@ -35,7 +35,7 @@ const TourCard = ({ tour }) => {
           </div>
 
           <h5 className="tour__title">
-            <Link to={`/tours/${id}`}>{title}</Link>
+            <Link to={`/places/${id}`}>{title}</Link>
           </h5>
 
           <div className="card__bottom d;-flex align-items-center justify-content-between mt-3">

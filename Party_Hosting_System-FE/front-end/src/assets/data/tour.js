@@ -7,7 +7,7 @@ import tourImg06 from "../images/tour-img06.jpg";
 import tourImg07 from "../images/tour-img07.png";
 import tourImg08 from "../images/tour-img08.png";
 
-const tours = [
+const places = [
   {
     id: "01",
     title: "Truffle",
@@ -161,4 +161,4 @@ const tours = [
   },
 ];
 
-export default tours;
+export default places;

@@ -70,8 +70,12 @@ const Login = () => {
                   </Button>
                 </Form>
                 <p>
-                  Don't have an account? <Link to="/register">Create</Link>
+                  Forgot password? <Link to="/forgot-password">Reset</Link>
                 </p>
+                <p>
+                  Don't have an account? <Link to="/register">Create</Link>
+                </p> 
+                
               </div>
             </div>
           </Col>

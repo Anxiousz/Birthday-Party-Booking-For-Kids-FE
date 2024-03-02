@@ -13,6 +13,8 @@
 
 .hero__content h1 .highlight {
     color: var(--secondary-color);
+    font-size: 2.4rem;
+    font-weight: 600;
 }
 
 .hero__content {

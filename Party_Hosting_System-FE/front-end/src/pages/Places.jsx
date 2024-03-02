@@ -5,10 +5,10 @@ import "../styles/tour.css";
 import tourData from "../assets/data/tour";
 import Newsletter from "../shared/Newsletter";
 import { SearchBar } from "../shared/SearchBar";
-import TourCard from "../shared/TourCard";
+import TourCard from "../shared/PlaceCard";
 import { Container, Row, Col } from "reactstrap";
 
-const Tours = () => {
+const Places = () => {
   const [pageCount, setPageCount] = useState(0);
   const [page, setPage] = useState(0);
   useEffect(() => {
@@ -18,7 +18,7 @@ const Tours = () => {
 
   return (
     <>
-      <CommonSection title={"All Tours"} />
+      <CommonSection title={"All Places"} />
       <section>
         <Container>
           <Row>
@@ -55,4 +55,4 @@ const Tours = () => {
   );
 };
 
-export default Tours;
+export default Places;

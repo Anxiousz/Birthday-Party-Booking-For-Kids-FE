@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, FormGroup, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import "../styles/login.css";
+import Password_Vali from "./PasswordValidation";
 
 import registerImg from "../assets/images/register.png";
 import userIcon from "../assets/images/user.png";
@@ -18,7 +19,6 @@ const Register = () => {
     fullName: "",
     phoneNumber: "",
     username: "",
-    password: "",
     address: "",
     email: "",
     dateOfBirth: "",
@@ -114,22 +114,8 @@ const Register = () => {
                 {submitted && !values.username && (
                   <span id="last-name-error">Please enter your username</span>
                 )}
-
-                {!valid && (
-                  <input
-                    class="form-field"
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    value={values.password}
-                    onChange={handleInputChange}
-                  />
-                )}
-
-                {submitted && !values.password && (
-                  <span id="last-name-error">Please enter your password</span>
-                )}
-
+                
+              <Password_Vali/>
                 {!valid && (
                   <input
                     class="form-field"

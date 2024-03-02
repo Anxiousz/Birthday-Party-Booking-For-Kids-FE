@@ -14,8 +14,8 @@ const quick_links = [
     display: "About",
   },
   {
-    path: "/tours",
-    display: "Tours",
+    path: "/Places",
+    display: "Places",
   },
 ];
 
