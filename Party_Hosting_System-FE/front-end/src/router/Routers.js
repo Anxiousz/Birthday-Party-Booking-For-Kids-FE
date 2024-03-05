@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./../pages/Home";
 import Places from "../pages/Places";
+import Posts from "../pages/Post";
 import TourDetails from "./../pages/TourDetails";
 import Register from "./../pages/Register";
 import Login from "./../pages/Login";
@@ -14,6 +15,7 @@ const Routers = () => {
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
       <Route path="/home" element={<Home />} />
+      <Route path="/posts" element={<Posts/>} />
       <Route path="/places" element={<Places />} />
       <Route path="/places/:id" element={<TourDetails />} />
       <Route path="/login" element={<Login />} />

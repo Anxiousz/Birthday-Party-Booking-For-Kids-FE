@@ -11,12 +11,16 @@ const nav__links = [
     display: "Home",
   },
   {
-    path: "/about",
-    display: "About",
+    path: "/posts",
+    display: "Posts"
   },
   {
     path: "/places",
     display: "Places",
+  },
+  {
+    path: "/about",
+    display: "About",
   },
 ];
 
