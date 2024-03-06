@@ -1,0 +1,132 @@
+[
+    {
+      "title": "Truffle",
+      "city": "Viet Nam",
+      "address": "L73 Landmark, 720A Dien Bien Phu, Ward 22, Binh Thanh, City. Ho Chi Minh",
+      "distance": 300,
+      "price": 115,
+      "maxGroupSize": 100,
+      "desc": "The French restaurant space is perfect for any occasion. Whether you want to celebrate a birthday, plan a romantic date, or hold an important business meeting, “Truffle” offers a space that meets every need.",
+      "reviews": [],
+  
+      "photo": "/tour-images/tour-img01.jpg",
+      "featured": true
+    },
+    {
+      "title": "SEI Dining",
+      "city": "Viet Nam",
+      "address": "13-15-17 Dong Khoi, Ben Nghe Ward, District 1, City. Ho Chi Minh",
+      "distance": 400,
+      "price": 20,
+      "maxGroupSize": 150,
+      "desc": "With a prime location on the frontage of Dong Khoi Street and possessing a spacious, luxurious and private space. SEI Dining Lounge provides and fully meets your party organization needs, from private personal parties to group, corporate, and business parties.",
+      "reviews": [],
+  
+      "photo": "/tour-images/tour-img02.png",
+      "featured": true
+    },
+    {
+      "title": "ROS Yacht Club",
+      "city": "Viet Nam",
+      "address": "Bach Dang Wharf, 10B Ton Duc Thang Street, Ben Nghe, District 1, City. Ho Chi Minh",
+      "distance": 500,
+      "price": 48,
+      "maxGroupSize": 8,
+      "desc": "ROS not only owns a million-dollar yacht but also a riverside restaurant located in a prime location in the center of District 1, right at Bach Dang wharf. The space is large, airy, from indoors to outside in the garden and the table area close to the railing with a view of the Saigon River is a romantic place loved by diners every time they come. ROS is proud to be a restaurant with a classy space for your private year-end party.",
+      "reviews": [],
+  
+      "photo": "/tour-images/tour-img03.png",
+      "featured": true
+    },
+    {
+      "title": "Beautiful Sunrise, Thailand",
+      "city": "Phuket",
+      "address": "Somewhere in Thailand",
+      "distance": 500,
+      "price": 99,
+      "maxGroupSize": 8,
+      "desc": "this is the description",
+      "reviews": [],
+  
+      "photo": "/tour-images/tour-img04.jpg",
+      "featured": true
+    },
+    {
+      "title": "Nusa Pendia Bali, Indonesia",
+      "city": "Bali",
+      "address": "Somewhere in Indonesia",
+      "distance": 500,
+      "price": 99,
+      "maxGroupSize": 8,
+      "desc": "this is the description",
+      "reviews": [],
+  
+      "photo": "/tour-images/tour-img05.jpg",
+      "featured": true
+    },
+    {
+      "title": "Cherry Blossoms Spring",
+      "city": "Tokyo",
+      "address": "Somewhere in Japan",
+      "distance": 500,
+      "price": 99,
+      "maxGroupSize": 8,
+      "desc": "this is the description",
+      "reviews": [],
+  
+      "photo": "/tour-images/tour-img06.jpg",
+      "featured": true
+    },
+    {
+      "title": "Holmen Lofoten, France",
+      "city": "Paris",
+      "address": "Somewhere in France",
+      "distance": 500,
+      "price": 99,
+      "maxGroupSize": 8,
+      "desc": "this is the description",
+      "reviews": [],
+  
+      "photo": "/tour-images/tour-img07.jpg",
+      "featured": true
+    },
+    {
+      "title": "Beautiful Snowy Mountains",
+      "city": "Bangkok",
+      "address": "Somewhere in Thailand",
+      "distance": 500,
+      "price": 99,
+      "maxGroupSize": 8,
+      "desc": "this is the description",
+      "reviews": [],
+  
+      "photo": "/tour-images/tour-img03.jpg",
+      "featured": true
+    },
+    {
+      "title": "Jaflong, Sylhet",
+      "city": "Sylhet",
+      "address": "Somewhere in Sylhet",
+      "distance": 100,
+      "price": 99,
+      "maxGroupSize": 5,
+      "desc": "this is the description",
+      "reviews": [],
+  
+      "photo": "/tour-images/tour-img08.jpg",
+      "featured": false
+    },
+    {
+      "title": "Cox's Bazar Sea Beach",
+      "city": "Chittagong",
+      "address": "Somewhere in Chittagong",
+      "distance": 500,
+      "price": 99,
+      "maxGroupSize": 8,
+      "desc": "this is the description",
+      "reviews": [],
+  
+      "photo": "/tour-images/tour-img09.jpg",
+      "featured": false
+    }
+  ]

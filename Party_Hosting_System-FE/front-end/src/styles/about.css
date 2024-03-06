@@ -1,0 +1,15 @@
+.card_display {
+    float: right;
+    margin-left: 5px;
+}
+.card_display p{
+ display: block;margin: 0 auto;
+ text-align: center;
+
+}
+
+.img_display img{
+ float: left;  
+ width: 400px;
+  
+}
