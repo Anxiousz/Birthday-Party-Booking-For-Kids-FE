@@ -86,7 +86,7 @@
 .login__form p a{
     color:var(--heading-color);
     text-decoration: #fff;
-    margin-left: 50px;
+    margin-left: 4px;
     font-weight: 500;
 }
 

@@ -52,7 +52,7 @@ export const SearchBar = () => {
               <i class="ri-group-line"></i>
             </span>
             <div>
-              <h6>MaxPeople</h6>
+              <h6>Max People</h6>
               <input type="number" placeholder="0" ref={maxGroupSizeRef} />
             </div>
           </FormGroup>
