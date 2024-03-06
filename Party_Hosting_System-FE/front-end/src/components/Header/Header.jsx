@@ -82,7 +82,7 @@ const Header = () => {
             </div>
             {/* ============== menu end ============== */}
             <div>
-            <Button onClick={toggleTheme} className="btn primary__btn">
+            <Button onClick={toggleTheme} className="btn primary__btn buttoncheck">
                 {isDarkTheme ? 'Light Mode' : 'Dark Mode'}
               </Button>
             </div>

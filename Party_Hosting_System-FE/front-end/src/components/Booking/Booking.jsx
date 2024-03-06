@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import "./booking.css";
-import { Form, FormGroup, ListGroup, ListGroupItem, Button } from "reactstrap";
 
-import { useNavigate } from "react-router-dom";
+import { Form, FormGroup, ListGroup, ListGroupItem, Button } from "reactstrap";
+import { useNavigate, Link } from "react-router-dom";
+import Payment from "../../pages/Payment";
+
 const Booking = ({ tour, avgRating }) => {
   const { price, reviews } = tour;
 
   const navigate = useNavigate();
-
+  const [totalAmount, setTotalAmount] = useState(0);
   const [credentials, setCredentials] = useState({
     userId: "01", //later it will be dynamic
     userEmail: "example@gmail.com",
@@ -18,17 +20,26 @@ const Booking = ({ tour, avgRating }) => {
   });
 
   const handleChange = (e) => {
-    setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    const { id, value } = e.target;
+    setCredentials((prev) => ({ ...prev, [id]: value }));
+    // Recalculate total amount whenever guest size changes
+    if (id === "guestSize") {
+      calculateTotalAmount();
+    }
   };
 
   const serviceFee = 10;
-  const totalAmount =
-    Number(price) * Number(credentials.guestSize) + Number(serviceFee);
+
+  const calculateTotalAmount = () => {
+    const calculatedTotalAmount =
+      Number(price) * Number(credentials.guestSize) + Number(serviceFee);
+    setTotalAmount(calculatedTotalAmount);
+  };
 
   // send data to the server
   const handleClick = (e) => {
     e.preventDefault();
-    navigate("/thank-you");
+    navigate("/payment");
   };
 
   return (
@@ -105,7 +116,7 @@ const Booking = ({ tour, avgRating }) => {
           </ListGroupItem>
         </ListGroup>
         <Button className="btn primary__btn w-100 mt-4" onClick={handleClick}>
-          Book Now
+            Booking Now
         </Button>
       </div>
     </div>
