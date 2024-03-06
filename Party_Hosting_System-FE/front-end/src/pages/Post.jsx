@@ -1,7 +1,9 @@
 import React from "react";
 import {} from "reactstrap";
-import "../styles/post.css";
-import Popup from "reactjs-popup";
+import "../styles/post.css"
+import ListPost from "./CRUD_Post/listPost";
+import AddPost from "./CRUD_Post/addPost";
+import EditPost from "./CRUD_Post/editPost";
 
 const Post = () => {
   return (
@@ -15,22 +17,10 @@ const Post = () => {
         </ul>
       </div>
       <div>
-      <Popup modal trigger={<button>Create Post</button>}>
-          <div className="newPost">
-            <div className="container">
-              <form>
-                <div className="inputFile">
-                  <input type="file"></input>
-                </div>
-                <input className="popup_title" type="text" placeholder="Title"></input>
-                <textarea className="popup_textarea" id="" cols="80" rows="12"></textarea>
-                <div className="popup-button">
-                <button>Create Post</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </Popup>
+        <AddPost />
+        <ListPost />
+        
+        <EditPost />
     </div>
     </div>
   );

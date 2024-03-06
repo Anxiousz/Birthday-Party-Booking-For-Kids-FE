@@ -80,11 +80,7 @@
     margin-bottom: 10px;
     position: relative;
   }
-  .newPost .popup-button button{
-    width: 100%;
-    background-color: white;
-    color: black;
-  }
+  .newPost 
   
   .newPost .container .popup_title{
     width: 100%;
@@ -92,4 +88,22 @@
   }
   .newPost .container .inputFile input{
     width: 100%;
+  }
+
+  .ul_post{
+    list-style-type: none;
+    padding: 0;
+    margin-left: 4.5%;
+  }
+
+  .CRUD_post{
+    background-color: red;
+    border-radius: 3%;
+    width: 95%;
+    height: auto;
+  }
+
+  .CRUD_post li{
+    margin-bottom: 5%;
+    padding-bottom: 1%;
   }
