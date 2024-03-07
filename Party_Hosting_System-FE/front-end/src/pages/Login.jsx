@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, FormGroup, Button } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/login.css";
-import { DropdownButton, Dropdown } from "react-bootstrap";
 import Select from "react-select";
-
 import loginImg from "../assets/images/login.png";
 import userIcon from "../assets/images/user.png";
+import axios from "axios";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
     email: undefined,
     password: undefined,
   });
+  const [selectedOption, setSelectedOption] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -24,9 +25,62 @@ const Login = () => {
   const option = [
     { value: "user", label: "User" },
     { value: "host", label: "Host" },
+    { value: "staff", label: "Staff"},
     { value: "admin", label: "Admin"}
   ];
 
+
+  const postData = (selectedOption) => {
+    switch (selectedOption.value) {
+      case "user":
+        axios.post("https://partyhostingsystem.azurewebsites.net/api/v1/Login/RegisteredUser", credentials)
+          .then((res) => {
+            localStorage.setItem('authToken', res.data.token);
+            console.log(res.data.token);
+            navigate('/home');
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        break;
+      case "host":
+        axios.post("https://partyhostingsystem.azurewebsites.net/api/v1/Login/PartyHost", credentials)
+          .then((res) => {
+            localStorage.setItem('authToken', res.data.token);
+            console.log(res.data.token);
+            navigate('/home');
+            
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        break;
+      case "admin":
+        axios.post("https://partyhostingsystem.azurewebsites.net/api/v1/Login/Admin", credentials)
+          .then((res) => {
+            localStorage.setItem('authToken', res.data.token);
+            console.log(res.data.token);
+            navigate('/home');
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        break;
+      case "staff":
+        axios.post("https://partyhostingsystem.azurewebsites.net/api/v1/Login/Staff", credentials)
+          .then((res) => {
+            localStorage.setItem('authToken', res.data.token);
+            console.log(res.data.token);
+            navigate('/home');
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        break;
+      default:
+        break;
+    }
+  };
   return (
     <section>
       <Container>
@@ -60,11 +114,12 @@ const Login = () => {
                       onChange={handleChange}
                     />
                   </FormGroup>
-                  <Select className="option" options={option}
+                  <Select className="option" options={option} onChange={setSelectedOption} 
                   /* cái này là bảng dropdown để chọn roll*/></Select>
                   <Button
                     className="btn secondary__btn auth__btn"
                     type="submit"
+                    onClick={() => postData(selectedOption)}
                   >
                     Login
                   </Button>

@@ -5,8 +5,8 @@ import { Form, FormGroup, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { useNavigate, Link } from "react-router-dom";
 import Payment from "../../pages/Payment";
 
-const Booking = ({ tour, avgRating }) => {
-  const { price, reviews } = tour;
+const Booking = ({ room, avgRating }) => {
+  const { price, reviews } = room;
 
   const navigate = useNavigate();
   const [totalAmount, setTotalAmount] = useState(0);
@@ -102,13 +102,13 @@ const Booking = ({ tour, avgRating }) => {
         <ListGroup>
           <ListGroupItem className="border-0 px-0">
             <h5 className="d-flex align-items-center gap-1">
-              ${price} <i class="ri-close-line"></i> 1 person
+              {price} <i class="ri-close-line"></i> 1 person
             </h5>
-            <span>${price}</span>
+            <span>{price}</span>
           </ListGroupItem>
           <ListGroupItem className="border-0 px-0">
             <h5>Service charge</h5>
-            <span>${serviceFee}</span>
+            <span>{serviceFee}</span>
           </ListGroupItem>
           <ListGroupItem className="border-0 px-0 total">
             <h5>Total</h5>
