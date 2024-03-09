@@ -14,8 +14,12 @@ const nav__links = [
     display: "About",
   },
   {
-    path: "/places",
+    path: "/allroom",
     display: "Places",
+  },
+  {
+    path: "/post",
+    display: "Post",
   },
 ];
 

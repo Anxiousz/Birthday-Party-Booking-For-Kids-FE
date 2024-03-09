@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Form, Label, Input, FormGroup, Col } from "reactstrap";
 import PostCard from "../shared/PostCard";
+import axios from "axios";
 
 const Post = () => {
-    
   const [postData, setPostdata] = useState({
     context: undefined,
     title: undefined,
@@ -12,7 +12,7 @@ const Post = () => {
   });
   const [store, setStore] = useState([]);
   const handleChange = (e) => {
-      setPostdata((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setPostdata((prev) => ({ ...prev, [e.target.id]: e.target.value }));
 
     console.log(sessionStorage.getItem("authToken"));
   };
@@ -22,14 +22,14 @@ const Post = () => {
   const fetchPostData = async () => {
     try {
       const response = await fetch(
-        "https://partyhostingsystem.azurewebsites.net/api/v1/Post"
-        ,{
-            headers: {
-              Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-            },
-          }
+        "https://partyhostingsystem.azurewebsites.net/api/v1/Post",
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        }
       );
-          
+
       const data = await response.json();
       setStore(data);
       console.log(store);
@@ -37,15 +37,32 @@ const Post = () => {
       console.error("Error fetching post data:", error);
     }
   };
+  const endpoint = store;
+  const apiUrl = "https://partyhostingsystem.azurewebsites.net/api/v1/Post";
+  const createPostData = async (data) => {
+    try {
+      axios
+        .post(apiUrl + endpoint, postData)
+        .then((res) => {
+          sessionStorage.setItem("authToken", res.data.token);
+          console.log(res.data.token);
+          setTimeout(() => {
+          }, 2500);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {}
+  };
   return (
-    <div> 
-        <button onClick={fetchPostData}>Click to check</button>
+    <div>
+      <button onClick={fetchPostData}>Click to check</button>
 
-        {store.slice(0, 6).map((store) => (
-      <Col lg="4" className="mb-4" key={store.id}>
-        <PostCard store={store} />
-      </Col>
-    ))}
+      {store.slice(0, 6).map((store) => (
+        <Col lg="4" className="mb-4" key={store.id}>
+          <PostCard store={store} />
+        </Col>
+      ))}
       <Form className="post table">
         <FormGroup>
           <Label for="title">Title</Label>

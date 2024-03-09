@@ -27,13 +27,11 @@ const Register = () => {
     birthDay: undefined,
     phone: undefined,
     address: undefined,
-    gender: true,
+    gender: undefined,
   });
   const handleChange = (e) => {
-    if (e.target.id === 'gender') {
-    } else { 
+    
       setData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
-    }
     console.log(data);
   };
   //From đăng kí  account
@@ -142,7 +140,7 @@ const Register = () => {
               {!valid && (
                 <input
                   class="form-field"
-                  type="text"
+                  type="number"
                   placeholder="Phone Number"
                   id="phone"
                   name="phone"
@@ -158,7 +156,7 @@ const Register = () => {
                       <input
                         class="form-field"
                         type="radio"
-                        value='true'
+                        value='female'
                         id="gender"
                         name="radio1"
                         onChange={handleChange}
@@ -172,7 +170,7 @@ const Register = () => {
                         class="form-field"
                         name="radio1"
                         type="radio"
-                        value='false'
+                        value='male'
                         id="gender"
                         onChange={handleChange}
                       />
