@@ -15,7 +15,7 @@ const Places = () => {
     const pages = Math.ceil(5 / 4); // latter we will use backend data count
     setPageCount(pages);
   }, [page]);
-
+  
   return (
     <>
       <CommonSection title={"All Places"} />

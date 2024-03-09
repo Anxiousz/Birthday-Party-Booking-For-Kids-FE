@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
 import PlaceData from "../../assets/data/tour";
 import { Col } from "reactstrap";
-import TourCard from "../../shared/PlaceCard";
+import RoomCard from "../../shared/PlaceCard";
+import { useNavigate } from "react-router-dom";
 export const FeatureTourList = () => {
-  const [tourData, setTourData] = useState([]);
-
+  const [roomData, setRoomData] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
-    fetchTourData();
+    fetchRoomData();
   }, []);
 
-  const fetchTourData = async () => {
+  const fetchRoomData = async () => {
     try {
       const response = await fetch(
         "https://partyhostingsystem.azurewebsites.net/api/v1/Room/GetAllRoom"
       );
       const data = await response.json();
-      setTourData(data);
+      setRoomData(data);
     } catch (error) {
       console.error("Error fetching tour data:", error);
     }
@@ -23,11 +24,14 @@ export const FeatureTourList = () => {
 
   return (
     <>
-      {tourData.map((room) => (
-        <Col lg="4" className="mb-4" key={room.id}>
-          <TourCard tour={room} />
-        </Col>
-      ))}
+      {roomData.slice(0, 6).map((room) => (
+      <Col lg="4" className="mb-4" key={room.id}>
+        <RoomCard room={room} />
+      </Col>
+    ))}
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+      <button className="btn booking__btn" onClick={() => navigate('/allroom')}>View More</button>
+    </div>
     </>
   );
 };

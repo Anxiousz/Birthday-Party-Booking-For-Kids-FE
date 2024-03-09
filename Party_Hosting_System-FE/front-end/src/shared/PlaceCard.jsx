@@ -3,7 +3,7 @@ import { Card, CardBody } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import "./place-card.css";
 
-const TourCard = ({ tour }) => {
+const TourCard = ({ room }) => {
   const {
     roomId,
     roomName,
@@ -14,7 +14,7 @@ const TourCard = ({ tour }) => {
     price,
     image,
     status,
-  } = tour;
+  } = room;
 
   const navigate = useNavigate();
 

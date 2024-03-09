@@ -74,6 +74,16 @@ export default function Food() {
         </Col>
         <Col lg="4"></Col>
       </Row>
+
+    
+
+
+
+
+
+
+
+
     </Container>
   );
 }

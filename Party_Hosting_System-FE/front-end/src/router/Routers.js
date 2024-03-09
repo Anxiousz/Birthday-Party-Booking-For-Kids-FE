@@ -6,6 +6,7 @@ import TourDetails from "./../pages/TourDetails";
 import Register from "./../pages/Register";
 import Login from "./../pages/Login";
 import About from "./../pages/About";
+import Room from "./../pages/Room";
 import Food from "./../pages/Food";
 import SearchResultList from "./../pages/SearchResultList";
 import ThankYou from "../pages/ThankYou";
@@ -21,6 +22,7 @@ const Routers = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/about" element={<About />} />
       <Route path="/food" element={<Food />} />
+      <Route path="/allroom" element={<Room />} />
       <Route path="/thank-you" element={<ThankYou />} />
       <Route path="/tour/search" element={<SearchResultList />} />
       <Route path="/login/roll-selection" />
