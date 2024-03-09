@@ -8,6 +8,7 @@ import Login from "./../pages/Login";
 import About from "./../pages/About";
 import Room from "./../pages/Room";
 import Food from "./../pages/Food";
+import Post from "./../pages/Post";
 import SearchResultList from "./../pages/SearchResultList";
 import ThankYou from "../pages/ThankYou";
 
@@ -23,6 +24,7 @@ const Routers = () => {
       <Route path="/about" element={<About />} />
       <Route path="/food" element={<Food />} />
       <Route path="/allroom" element={<Room />} />
+      <Route path="/post" element={<Post />} />
       <Route path="/thank-you" element={<ThankYou />} />
       <Route path="/tour/search" element={<SearchResultList />} />
       <Route path="/login/roll-selection" />

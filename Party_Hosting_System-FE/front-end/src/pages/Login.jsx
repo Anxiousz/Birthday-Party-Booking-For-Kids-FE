@@ -71,7 +71,7 @@ const Login = () => {
       {showAlert && (
         <div className="toast-container">
           <Toast>
-            <ToastHeader icon="success">Reactstrap</ToastHeader>
+            <ToastHeader icon="success">Login Successfully!</ToastHeader>
             <ToastBody>
               Welcome to <strong>Party Hosting System</strong> . <br />
             </ToastBody>

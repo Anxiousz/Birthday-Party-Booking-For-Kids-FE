@@ -7,6 +7,7 @@ import { Input, Label } from "reactstrap";
 import registerImg from "../assets/images/register.png";
 import userIcon from "../assets/images/user.png";
 import axios from "axios";
+import sendErrorcode from "../shared/error-code";
 
 const Register = () => {
   // Define the state
@@ -16,7 +17,6 @@ const Register = () => {
     email: undefined,
     password: undefined,
   });
-  const [submitted, setSubmitted] = useState(false);
   const [valid, setValid] = useState(false);
   const [data, setData] = useState({
     staffId: "5",
@@ -54,7 +54,6 @@ const Register = () => {
       setValid(true);
       postData(data);
     }
-    setSubmitted(true);
   };
   //đang thử nghiệm form đăng kí thu thập thông tin
   // Define the function
@@ -70,8 +69,11 @@ const Register = () => {
         navigate("/login");
       })
       .catch((err) => {
-        console.log(err);
-        console.log(data);
+        console.log(err.response.status);
+        console.log(err.response.data);
+        const status = err.response.status;
+        const message = err.response.data;
+        sendErrorcode(status, message);
       });
 
     // Hàm xử lý thay đổi giá trị input
@@ -82,7 +84,7 @@ const Register = () => {
         <Col /*form đăng kí */>
           <div className="form-container">
             <form className="register-form" onSubmit={handleSubmit}>
-              {submitted && valid && (
+              { valid && (
                 <div className="success-message">
                   <h3> Welcome {data.fullName} </h3>
                   <div> Your registration was successful! </div>
@@ -107,9 +109,7 @@ const Register = () => {
                 />
               )}
 
-              {submitted && !data.username && (
-                <span id="last-name-error">Please enter your username</span>
-              )}
+
 
               {!valid && (
                 <input
@@ -122,9 +122,7 @@ const Register = () => {
                 />
               )}
 
-              {submitted && !data.email && (
-                <span id="email-error">Please enter an email address</span>
-              )}
+
               {!valid && (
                 <input
                   class="form-field"
@@ -141,9 +139,6 @@ const Register = () => {
                 }
               /> */}
 
-              {submitted && !data.fullName && (
-                <span id="password-error">Please enter your password</span>
-              )}
               {!valid && (
                 <input
                   class="form-field"
@@ -155,9 +150,6 @@ const Register = () => {
                 />
               )}
 
-              {submitted && !data.phoneNumber && (
-                <span id="last-name-error">Please enter your phone number</span>
-              )}
               <FormGroup tag="fieldset" onSubmit={handleChange}>
                 <h5>Gender</h5>
                 <Row xs="2">
@@ -201,11 +193,6 @@ const Register = () => {
                 />
               )}
 
-              {submitted && !data.dateOfBirth && (
-                <span id="full-name-error">
-                  Please enter your date of birth
-                </span>
-              )}
 
               {!valid && (
                 <input
@@ -216,10 +203,6 @@ const Register = () => {
                   name="address"
                   onChange={handleChange}
                 />
-              )}
-
-              {submitted && !data.address && (
-                <span id="address-error">Please enter your address</span>
               )}
 
               <button
