@@ -1,5 +1,16 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, FormGroup, Button } from "reactstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Button,
+  Alert,
+  Toast,
+  ToastHeader,
+  ToastBody,
+} from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/login.css";
 import Select from "react-select";
@@ -13,6 +24,7 @@ const Login = () => {
     password: undefined,
   });
   const [selectedOption, setSelectedOption] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,66 +35,51 @@ const Login = () => {
     e.preventDefault();
   };
   const option = [
-    { value: "user", label: "User" },
-    { value: "host", label: "Host" },
-    { value: "staff", label: "Staff"},
-    { value: "admin", label: "Admin"}
+    { value: "RegisteredUser", label: "User" },
+    { value: "PartyHost", label: "Host" },
+    { value: "Staff", label: "Staff" },
+    { value: "Admin", label: "Admin" },
   ];
 
-
   const postData = (selectedOption) => {
-    switch (selectedOption.value) {
-      case "user":
-        axios.post("https://partyhostingsystem.azurewebsites.net/api/v1/Login/RegisteredUser", credentials)
-          .then((res) => {
-            localStorage.setItem('authToken', res.data.token);
-            console.log(res.data.token);
-            navigate('/home');
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        break;
-      case "host":
-        axios.post("https://partyhostingsystem.azurewebsites.net/api/v1/Login/PartyHost", credentials)
-          .then((res) => {
-            localStorage.setItem('authToken', res.data.token);
-            console.log(res.data.token);
-            navigate('/home');
-            
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        break;
-      case "admin":
-        axios.post("https://partyhostingsystem.azurewebsites.net/api/v1/Login/Admin", credentials)
-          .then((res) => {
-            localStorage.setItem('authToken', res.data.token);
-            console.log(res.data.token);
-            navigate('/home');
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        break;
-      case "staff":
-        axios.post("https://partyhostingsystem.azurewebsites.net/api/v1/Login/Staff", credentials)
-          .then((res) => {
-            localStorage.setItem('authToken', res.data.token);
-            console.log(res.data.token);
-            navigate('/home');
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        break;
-      default:
-        break;
-    }
+    const apiUrl = "https://partyhostingsystem.azurewebsites.net/api/v1/Login/";
+    const endpoint = selectedOption.value;
+    axios
+      .post(apiUrl + endpoint, credentials)
+      .then((res) => {
+        sessionStorage.setItem("authToken", res.data.token);
+        console.log(res.data.token);
+        setShowAlert(true);
+        setTimeout(() => {
+          navigate("/home");
+        }, 2500);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+  // <Alert className="alert_login">
+  //   <h4 className="alert-heading">Login successfully</h4>
+  //   <p>
+  //     Welcome to Party Hosting System. You have successfully logged in.
+  //     Please enjoy your time here.
+  //   </p>
+  //   <hr />
+  // </Alert>
   return (
     <section>
+      {showAlert && (
+        <div className="toast-container">
+          <Toast>
+            <ToastHeader icon="success">Reactstrap</ToastHeader>
+            <ToastBody>
+              Welcome to <strong>Party Hosting System</strong> . <br />
+            </ToastBody>
+            <ToastBody>You have successfully logged in. <br /></ToastBody>
+            <ToastBody>Please enjoy your time here.</ToastBody>
+          </Toast>
+        </div>
+      )}
       <Container>
         <Row>
           <Col lg="8" className="m-auto">
@@ -114,8 +111,12 @@ const Login = () => {
                       onChange={handleChange}
                     />
                   </FormGroup>
-                  <Select className="option" options={option} onChange={setSelectedOption} 
-                  /* cái này là bảng dropdown để chọn roll*/></Select>
+                  <Select
+                    className="option"
+                    options={option}
+                    onChange={setSelectedOption}
+                    /* cái này là bảng dropdown để chọn roll*/
+                  ></Select>
                   <Button
                     className="btn secondary__btn auth__btn"
                     type="submit"
@@ -129,8 +130,7 @@ const Login = () => {
                 </p>
                 <p>
                   Don't have an account? <Link to="/register">Create</Link>
-                </p> 
-                
+                </p>
               </div>
             </div>
           </Col>

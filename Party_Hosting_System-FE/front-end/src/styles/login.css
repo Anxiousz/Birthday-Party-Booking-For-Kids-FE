@@ -35,7 +35,28 @@
     left: 50%;
     transform: translate(-50%, -9%);
 }
-
+.toast-container {
+  position: fixed;
+  top: 17%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  border-radius: 10px;
+}
+.toast-container .toast {
+  width: 600px !important;
+  height: 300px !important;
+  background-color: rgb(196, 221, 162);
+  border: 1px solid rgba(0, 0, 0, 0.1); /* 60% opacity */
+}
+.toast-container .toast .toast-body {
+  margin-top: 16px;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 .login__form .user img {
     width: 100%;
     margin-top: 45%;
