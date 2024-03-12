@@ -10,16 +10,12 @@ const quick_links = [
     display: "Home",
   },
   {
-    path: "/posts",
-    display: "Posts"
-  },
-  {
-    path: "/places",
-    display: "Places",
-  },
-  {
     path: "/about",
     display: "About",
+  },
+  {
+    path: "/allroom",
+    display: "Places",
   },
 ];
 

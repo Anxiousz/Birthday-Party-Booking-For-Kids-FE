@@ -9,18 +9,18 @@ import customizationImg from "../assets/images/customization.png";
 const serviceData = [
   {
     imgUrl: weatherImg,
-    title: "Testa",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam, laudantium inventore nisi molestiae dolore harum veniam aliquid cumque commodi odit, incidunt maiores veritatis. Dignissimos unde debitis numquam, delectus ut quos!",
+    title: "Chicken Plus",
+    desc: "Chicken Plus is the leading Korean fried chicken chain in Vietnam. We provide chicken dishes with special flavors to bring you the most wonderful meal!",
   },
   {
     imgUrl: guideImg,
-    title: "Testb",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam, laudantium inventore nisi molestiae dolore harum veniam aliquid cumque commodi odit, incidunt maiores veritatis. Dignissimos unde debitis numquam, delectus ut quos!",
+    title: "Pachi Pachi",
+    desc: "Operating under the hot pot restaurant model (combining buffet and a la carte service), Pachi Pachi restaurant brings diners completely new experiences from marinating, flavoring to how to enjoy the food.",
   },
   {
     imgUrl: customizationImg,
-    title: "Testc",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam, laudantium inventore nisi molestiae dolore harum veniam aliquid cumque commodi odit, incidunt maiores veritatis. Dignissimos unde debitis numquam, delectus ut quos!",
+    title: "CashFlow",
+    desc: "Cashflow cafe is an ideal stop for many young people in Saigon who are passionate about finance and creative activities. This is also a place for those who want to have a memorable space with friends.",
   },
 ];
 

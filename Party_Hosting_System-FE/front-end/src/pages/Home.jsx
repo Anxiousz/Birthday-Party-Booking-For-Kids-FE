@@ -2,16 +2,16 @@ import React from "react";
 import "../styles/home.css";
 
 import { Container, Row, Col } from "reactstrap";
-import heroImg from "../assets/images/hero-img01.jpg";
-import heroImg02 from "../assets/images/hero-img02.jpg";
-import heroVideo from "../assets/images/hero-video.mp4";
 import cakeImg from "../assets/images/Cake.png";
 import Subtitle from "./../shared/Subtitle";
 import experienceImg from "../assets/images/experience.png";
+import party1 from "../assets/images/birthday-parties-1.jpg";
+import party2 from "../assets/images/party-2.avif";
+import partyVideo from "../assets/images/party-video.mp4";
 
 import { SearchBar } from "../shared/SearchBar";
 import { ServiceList } from "../services/ServiceList";
-import { FeatureTourList } from "../components/Featured-tours/FeatureTourList";
+import { FeatureTourList } from "../components/Featured-places/FeaturePlaceList";
 import Testimonial from "../components/Testimonial/Testimonial";
 import MasonryImagesGallery from "../components/Image-gallery/MasonryImagesGallery";
 import Newsletter from "../shared/Newsletter";
@@ -41,17 +41,17 @@ const Home = () => {
             </Col>
             <Col lg="2">
               <div className="hero__img-box">
-                <img src={heroImg} alt="" />
+                <img src={party1} alt="" />
               </div>
             </Col>
             <Col lg="2">
               <div className="hero__img-box mt-4">
-                <video src={heroVideo} alt="" controls />
+                <video src={partyVideo} alt="" controls />
               </div>
             </Col>
             <Col lg="2">
               <div className="hero__img-box mt-5">
-                <img src={heroImg02} alt="" />
+                <img src={party2} alt="" />
               </div>
             </Col>
             <SearchBar />
@@ -72,7 +72,7 @@ const Home = () => {
         </Container>
       </section>
 
-      {/* ============== featured tour section start  =================*/}
+      {/* ============== featured place section start  =================*/}
       <section>
         <Container>
           <Row>
@@ -85,7 +85,7 @@ const Home = () => {
         </Container>
       </section>
 
-      {/* ============== featured tour section end  =================*/}
+      {/* ============== featured place section end  =================*/}
 
       {/* ============== experience section start ===================*/}
       <section>
@@ -98,10 +98,9 @@ const Home = () => {
                   With our all experience <br /> we will serve you
                 </h2>
                 <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos
-                  ut est aut pariatur.
+                We provide services that allow you to experience 
+                different spaces depending on your preferences
                   <br />
-                  voluptate porro id minima numquam ex?
                 </p>
               </div>
               <div className="counter__wrapper d-flex align-items-center gap-5">

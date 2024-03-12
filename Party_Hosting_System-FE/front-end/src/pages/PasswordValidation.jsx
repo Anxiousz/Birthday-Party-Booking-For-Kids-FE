@@ -1,13 +1,15 @@
 /* eslint-disable no-useless-escape */
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Icon from 'react-icons-kit';
 import {basic_eye} from 'react-icons-kit/linea/basic_eye'
 import {basic_eye_closed} from 'react-icons-kit/linea/basic_eye_closed'
 import {arrows_exclamation} from 'react-icons-kit/linea/arrows_exclamation'
 import {arrows_circle_check} from 'react-icons-kit/linea/arrows_circle_check'
 
-function Password_Vali() {
-
+function Password_Vali(props) {
+  const [password, setPassword] = useState({
+    password: undefined,
+  });
   const [type, setType] = useState('password');
 
   // validated states
@@ -54,6 +56,13 @@ function Password_Vali() {
       setLengthValidated(false);
     }
   }
+  useEffect(() => {
+    props.onPasswordChange(password);
+  }, [password]);
+  const handleInputChange = (event) => {
+    setPassword(event.target.value);
+    handleChange(event.target.value); // Pass the value directly
+  };
 
   return (
     <div className="form">
@@ -64,7 +73,12 @@ function Password_Vali() {
         {/* input */}
         <div className='input-with-icon-div '>
           <input className='custom-input' placeholder='Password' type={type}
-          onChange={(e)=>handleChange(e.target.value)}/>
+          onChange={(e) => {
+            if (e.target) {
+              handleInputChange(e.target.value);
+              handleChange(e.target.value);
+            }
+          }}/>
           {type==="password"?(
             <span className='icon-span' onClick={()=>setType("text")}>
               <Icon icon={basic_eye_closed} size={18}/>

@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import "./booking.css";
-import { Form, FormGroup, ListGroup, ListGroupItem, Button } from "reactstrap";
 
-import { useNavigate } from "react-router-dom";
-const Booking = ({ tour, avgRating }) => {
-  const { price, reviews } = tour;
+import { Form, FormGroup, ListGroup, ListGroupItem, Button } from "reactstrap";
+import { useNavigate, Link } from "react-router-dom";
+import Payment from "../../pages/Payment";
+
+const Booking = ({ room, avgRating }) => {
+  const { price, reviews } = room;
 
   const navigate = useNavigate();
-
+  const [totalAmount, setTotalAmount] = useState(0);
   const [credentials, setCredentials] = useState({
     userId: "01", //later it will be dynamic
     userEmail: "example@gmail.com",
@@ -18,24 +20,33 @@ const Booking = ({ tour, avgRating }) => {
   });
 
   const handleChange = (e) => {
-    setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    const { id, value } = e.target;
+    setCredentials((prev) => ({ ...prev, [id]: value }));
+    // Recalculate total amount whenever guest size changes
+    if (id === "guestSize") {
+      calculateTotalAmount();
+    }
   };
 
   const serviceFee = 10;
-  const totalAmount =
-    Number(price) * Number(credentials.guestSize) + Number(serviceFee);
+
+  const calculateTotalAmount = () => {
+    const calculatedTotalAmount =
+      Number(price) * Number(credentials.guestSize) + Number(serviceFee);
+    setTotalAmount(calculatedTotalAmount);
+  };
 
   // send data to the server
   const handleClick = (e) => {
     e.preventDefault();
-    navigate("/thank-you");
+    navigate("/payment");
   };
 
   return (
     <div className="booking">
       <div className="booking__top d-flex align-items-center justify-content-between">
         <h3>
-          ${price}
+          {price} VND
           <span>/per person</span>
         </h3>
         <span className="tour__rating d-flex align-items-center">
@@ -91,13 +102,13 @@ const Booking = ({ tour, avgRating }) => {
         <ListGroup>
           <ListGroupItem className="border-0 px-0">
             <h5 className="d-flex align-items-center gap-1">
-              ${price} <i class="ri-close-line"></i> 1 person
+              {price} <i class="ri-close-line"></i> 1 person
             </h5>
-            <span>${price}</span>
+            <span>{price}</span>
           </ListGroupItem>
           <ListGroupItem className="border-0 px-0">
             <h5>Service charge</h5>
-            <span>${serviceFee}</span>
+            <span>{serviceFee}</span>
           </ListGroupItem>
           <ListGroupItem className="border-0 px-0 total">
             <h5>Total</h5>
@@ -105,7 +116,7 @@ const Booking = ({ tour, avgRating }) => {
           </ListGroupItem>
         </ListGroup>
         <Button className="btn primary__btn w-100 mt-4" onClick={handleClick}>
-          Book Now
+            Booking Now
         </Button>
       </div>
     </div>

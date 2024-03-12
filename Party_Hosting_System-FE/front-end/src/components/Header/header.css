@@ -9,7 +9,16 @@
     height: 12%;
     border-radius: 50%;
 }
+.dark-theme {
 
+    background-color: #222; 
+    color: #fff; 
+  
+
+    .nav__item a {
+      color: rgb(54, 182, 182); 
+    }
+  }
 .menu{
     margin-bottom: 0;
 }
@@ -44,4 +53,7 @@
     box-shadow: 3px 3px 8px -3px #ddd;
     z-index: 999;
     background:#fff;
+}
+.buttoncheck {
+    margin-left: 30px;
 }
