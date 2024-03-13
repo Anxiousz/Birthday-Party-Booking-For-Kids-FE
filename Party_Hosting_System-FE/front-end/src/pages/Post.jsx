@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Label, Input, FormGroup, Col } from "reactstrap";
 import PostCard from "../shared/PostCard";
 import axios from "axios";
+import "../styles/post.css";
 
 const Post = () => {
   const [postData, setPostdata] = useState({
@@ -46,8 +47,7 @@ const Post = () => {
         .then((res) => {
           sessionStorage.setItem("authToken", res.data.token);
           console.log(res.data.token);
-          setTimeout(() => {
-          }, 2500);
+          setTimeout(() => {}, 2500);
         })
         .catch((err) => {
           console.log(err);
@@ -55,36 +55,46 @@ const Post = () => {
     } catch (err) {}
   };
   return (
-    <div>
-      <button onClick={fetchPostData}>Click to check</button>
+    <div className="grid-container">
+      <div className="grid_center">
+        <ul>
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+        </ul>
+      </div>
+      <div className="post_main_Table">
+        <button onClick={fetchPostData}>Click to check</button>
 
-      {store.slice(0, 6).map((store) => (
-        <Col lg="4" className="mb-4" key={store.id}>
-          <PostCard store={store} />
-        </Col>
-      ))}
-      <Form className="post table">
-        <FormGroup>
-          <Label for="title">Title</Label>
-          <Input
-            type="text"
-            name="title"
-            id="title"
-            placeholder="Title"
-            onChange={handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="context">Context</Label>
-          <Input
-            type="text"
-            name="context"
-            id="context"
-            placeholder="Context"
-            onChange={handleChange}
-          />
-        </FormGroup>
-      </Form>
+        <Form className="post_Table">
+          <FormGroup>
+            <Label for="title">Title</Label>
+            <Input
+              type="text"
+              name="title"
+              id="title"
+              placeholder="Title"
+              onChange={handleChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="context">Context</Label>
+            <Input
+              type="text"
+              name="context"
+              id="context"
+              placeholder="Context"
+              onChange={handleChange}
+            />
+          </FormGroup>
+        </Form>
+          {store.slice(0, 6).map((store) => (
+          <Col lg="11" className="mb-4" key={store.id}>
+            <PostCard store={store} />
+          </Col>
+        ))}
+      </div>
     </div>
   );
 };

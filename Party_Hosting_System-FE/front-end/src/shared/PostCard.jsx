@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
+import "../styles/postCard.css";
 
 const PostCard = ({ store }) => {
   const { postId, title, context, image, status } = store;
