@@ -22,6 +22,17 @@ export const getTotalPackage = async () => {
   }
 };
 
+export const getTotalAccount = async () => {
+  try {
+    const response = await requestWithAuth.get('/api/v1/Dashboard/Account/total');
+    console.log('Dữ liệu nhận được:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Lỗi khi gọi API:', error);
+    return null;
+  }
+};
+
 export const getStatisticacccount = () => {
   return axiosInstances.login
     .get(`/api/v1/statistic/acccount`)

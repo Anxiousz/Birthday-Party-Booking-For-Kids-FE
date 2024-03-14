@@ -30,8 +30,9 @@ const Header = ({ handleLeftDrawerToggle }) => {
           }
         }}
       >
+       
         <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
-          <LogoSection />
+        <img src="https://img.upanh.tv/2024/03/14/logo.png" alt="logo.png" style={{ width: '50px', height: '50px' }} border="0"/> 
         </Box>
         <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden' }}>
           <Avatar
