@@ -94,7 +94,7 @@ const TourCard = ({ room }) => {
             </h5>
             {status === 1 && (
               <button className="btn booking__btn">
-<Link to={`/room/${roomId}`}>Book Now</Link>
+                <Link to={`/room/${roomId}`}>Book Now</Link>
               </button>
             )}
           </div>

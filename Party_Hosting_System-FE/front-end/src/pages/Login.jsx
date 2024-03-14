@@ -48,14 +48,19 @@ const Login = () => {
       .post(apiUrl + endpoint, credentials)
       .then((res) => {
         sessionStorage.setItem("authToken", res.data.token);
-        console.log(res.data.token);
+        sessionStorage.setItem("username", res.data.username);
+        sessionStorage.setItem("userId", res.data.id);
+        console.log(res.data);
         setShowAlert(true);
         setTimeout(() => {
           navigate("/home");
-        }, 2500);
+        }, 2000);
       })
       .catch((err) => {
         console.log(err);
+        if (err.code === "ERR_BAD_REQUEST") {
+          alert("Please check your email, password or role again!");
+        }
       });
   };
   // <Alert className="alert_login">
@@ -115,6 +120,7 @@ const Login = () => {
                     className="option"
                     options={option}
                     onChange={setSelectedOption}
+                    defaultValue={option[0]}
                     /* cái này là bảng dropdown để chọn roll*/
                   ></Select>
                   <Button

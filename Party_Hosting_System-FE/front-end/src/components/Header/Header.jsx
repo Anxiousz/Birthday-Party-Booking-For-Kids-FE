@@ -1,8 +1,18 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Container, Row, Button, Alert } from "reactstrap";
+import {
+  Container,
+  Row,
+  Button,
+  Alert,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import "./header.css";
+import Userimg from "../../assets/images/user-img.png";
 
 const nav__links = [
   {
@@ -23,10 +33,14 @@ const nav__links = [
   },
 ];
 
-const Header = () => {
+const Header = (props) => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
   const headerRef = useRef(null);
   const navigate = useNavigate();
   const isLoggedIn = !!sessionStorage.getItem("authToken");
+  const userName = sessionStorage.getItem("username");
+  const userId = sessionStorage.getItem("userId");
   const stickyHeaderFunc = () => {
     window.addEventListener("scroll", () => {
       if (
@@ -103,7 +117,7 @@ const Header = () => {
             </div>
             {isLoggedIn ? (
               <>
-                <div className="nav__right d-flex align-items-center gap-4">
+                {/* <div className="nav__right d-flex align-items-center gap-4">
                   <div className="nav__btns d-flex align-items-center gap-4">
                     <Button className="btn secondary__btn">
                       <Link to="/profile">
@@ -111,14 +125,47 @@ const Header = () => {
                       </Link>
                     </Button>
                   </div>
+                </div> */}
+                <div className="nav__right d-flex align-items-center gap-2">
+                  <div className="nav__btns d-flex align-items-center gap-2">
+                    <Dropdown
+                      isOpen={dropdownOpen}
+                      toggle={toggle}
+                      {...props}
+                      id="dropdown-basic-button"
+                      className="btn secondary__btn buttondropdown"
+                    >
+                      <DropdownToggle caret className="transparent-bg">
+                        {/* <img
+                          src={Userimg}
+                          alt="Profile"
+                          className="profile-image"
+                        /> */}
+                        {userName}
+                      </DropdownToggle>
+
+                      <DropdownMenu>
+                        <DropdownItem header></DropdownItem>
+                        <DropdownItem>
+                        <Link to={`/profile/${userId}`}>Profile</Link>
+                        </DropdownItem>
+                        <DropdownItem>
+                          <Link to="/profile">Booking History</Link>
+                        </DropdownItem>
+                        <DropdownItem onClick={handleLogout}>
+                            Logout
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
+                  </div>
                 </div>
                 <div>
-                  <Button
+                  {/* <Button
                     onClick={handleLogout}
                     className="btn primary__btn buttoncheck"
                   >
                     Logout
-                  </Button>
+                  </Button> */}
                 </div>
               </>
             ) : (

@@ -7,12 +7,7 @@ const error_code = () => {
 
 
 
-
-  return (
- <div>
-    Errrrorororo
- </div>
-  )
+ 
 };
 
 export default error_code;

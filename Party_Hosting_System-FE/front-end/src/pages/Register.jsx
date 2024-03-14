@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, FormGroup, Button } from "reactstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Button,
+  ButtonGroup,
+} from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/login.css";
 import Password_Vali from "./PasswordValidation";
@@ -11,7 +19,7 @@ import sendErrorcode from "../shared/error-code";
 
 const Register = () => {
   // Define the state
-
+  const [rSelected, setRSelected] = useState(1);
   const [credentials, setCredentials] = useState({
     userName: undefined,
     email: undefined,
@@ -30,35 +38,37 @@ const Register = () => {
     gender: undefined,
   });
   const handleChange = (e) => {
-    
-      setData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
     console.log(data);
+    console.log(rSelected);
+    console.log(url);
   };
   //From đăng kí  account
   const navigate = useNavigate();
-
+ const changePostUrl = rSelected => {
+    if (rSelected === 1) {
+      setData((prev) => ({ ...prev, staffId: "5" }));
+      setData((prev) => ({ ...prev, packageId: "1" }));
+    } else {
+      setData((prev) => ({ ...prev, staffId: "6" }));
+      setData((prev) => ({ ...prev, packageId: "2" }));
+    }
+ };
+  const url = rSelected === 1 ? 'https://partyhostingsystem.azurewebsites.net/api/v1/Register/RegisteredUser' : 'https://partyhostingsystem.azurewebsites.net/api/v1/Register/PartyHost';
   // Hàm xử lý submit form
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      data.userName &&
-      data.email &&
-      data.password &&
-      data.fullName &&
-      data.phoneNumber &&
-      data.birthDay &&
-      data.address
-    ) {
-      setValid(true);
-      postData(data);
-    }
+
+    postData(data);
   };
+
+
   //đang thử nghiệm form đăng kí thu thập thông tin
   // Define the function
   const postData = (data) => {
     axios
       .post(
-        "https://partyhostingsystem.azurewebsites.net/api/v1/Register/PartyHost",
+        url,
         data
       )
       .then((res) => {
@@ -81,13 +91,13 @@ const Register = () => {
       <Row>
         <Col /*form đăng kí */>
           <div className="form-container">
-            <form className="register-form" onSubmit={handleSubmit}>
-              { valid && (
+            <form className="register-form">
+              {/* { valid && (
                 <div className="success-message">
                   <h3> Welcome {data.fullName} </h3>
                   <div> Your registration was successful! </div>
                 </div>
-              )}
+              )} */}
 
               <div className="login__form">
                 <div className="user">
@@ -95,6 +105,8 @@ const Register = () => {
                 </div>
                 <h2>Register</h2>
               </div>
+
+              {/* checking first form data */}
 
               {!valid && (
                 <input
@@ -107,8 +119,6 @@ const Register = () => {
                 />
               )}
 
-
-
               {!valid && (
                 <input
                   class="form-field"
@@ -119,8 +129,6 @@ const Register = () => {
                   onChange={handleChange}
                 />
               )}
-
-
               {!valid && (
                 <input
                   class="form-field"
@@ -131,6 +139,30 @@ const Register = () => {
                   onChange={handleChange}
                 />
               )}
+              <div>
+                <br />
+                <h5 style={{}}>Choice your role</h5>
+                <ButtonGroup>
+                  <Button
+                    color="primary"
+                    outline
+                    onClick={() => setRSelected(1)}
+                    active={rSelected === 1}
+                  >
+                    User
+                  </Button>
+                  <Button
+                    color="primary"
+                    outline
+                    onClick={() => setRSelected(2)}
+                    active={rSelected === 2}
+                  >
+                    Party Host
+                  </Button>
+                </ButtonGroup>
+              </div>
+              <br />
+
               {/* <Password_Vali
                 onPasswordChange={(password) =>
                   handleChange(password)
@@ -147,39 +179,41 @@ const Register = () => {
                   onChange={handleChange}
                 />
               )}
-
-              <FormGroup tag="fieldset" onSubmit={handleChange}>
-                <h5>Gender</h5>
-                <Row xs="2">
-                  <Col>
-                    <FormGroup check>
-                      <input
-                        class="form-field"
-                        type="radio"
-                        value='female'
-                        id="gender"
-                        name="radio1"
-                        onChange={handleChange}
-                      />
-                      <Label check>Female</Label>
-                    </FormGroup>
-                  </Col>
-                  <Col>
-                    <FormGroup check>
-                      <input
-                        class="form-field"
-                        name="radio1"
-                        type="radio"
-                        value='male'
-                        id="gender"
-                        onChange={handleChange}
-                      />
-                      <Label check>Male</Label>
-                    </FormGroup>
+              <br />
+              <ButtonGroup className="d-flex flex-column">
+                <Row>
+                  <Col xs="auto">
+                    <h5>Gender</h5> 
                   </Col>
                 </Row>
-              </FormGroup>
-
+                <Row >
+                  <Col xs="auto">
+                    <Button
+                      value="female"
+                      color="primary"
+                      id="gender"
+                      outline
+                      onClick={handleChange}
+                      active={data.gender === 'female'}
+                    >
+                      Female
+                    </Button>
+                  </Col>
+                  <Col xs="auto">
+                    <Button
+                      value="male"
+                      color="primary"
+                      id="gender"
+                      outline
+                      onClick={handleChange}
+                      active={data.gender === 'male'}
+                    >
+                      Male
+                    </Button>
+                  </Col>
+                </Row>
+              </ButtonGroup>
+              <br />
               {!valid && (
                 <input
                   class="form-field"
@@ -190,7 +224,6 @@ const Register = () => {
                   onChange={handleChange}
                 />
               )}
-
 
               {!valid && (
                 <input

@@ -11,6 +11,7 @@ const TourDetails = () => {
 
   useEffect(() => {
     fetchRoomData();
+    // console.log('checkdataroom', roomData);
   }, []);
   const formatTime = (isoTime) => {
     const date = new Date(isoTime);
@@ -28,18 +29,22 @@ const TourDetails = () => {
     try {
       const roomId = location.pathname.split("/").pop(); // Extract roomId from URL
       const response = await fetch(
-        `https://partyhostingsystem.azurewebsites.net/api/v1/Room/GetRoomPartyHost/${roomId}`
+        `https://partyhostingsystem.azurewebsites.net/roomID?id=${roomId}`
       );
-      if (!response.ok) {
+            if (!response.ok) {
         throw new Error("Failed to fetch room details");
       }
       const data = await response.json();
-      setRoomData(data[0]); // Assuming the API returns an array with a single object
+      console.log(data)
+      setRoomData(data); // Assuming the API returns an array with a single object
     } catch (error) {
       console.error("Error fetching room details:", error);
     }
   };
 
+  if (!roomData) {
+    return <div>Loading...</div>;
+  }
   return (
     roomData && (
       <>

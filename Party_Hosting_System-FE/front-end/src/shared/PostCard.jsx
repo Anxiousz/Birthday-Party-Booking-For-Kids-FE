@@ -37,7 +37,7 @@ const PostCard = ({ store }) => {
           <p>{context}</p>
           <Button onClick={() => setShowPopup(true)}>View Details</Button>
           {showPopup && (
-            <div className="popup">
+            <div className="popup">6667
               <table>
                 <thead>
                   <tr>

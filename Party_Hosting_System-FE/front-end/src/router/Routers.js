@@ -10,6 +10,7 @@ import Food from "./../pages/Food";
 import Post from "./../pages/Post";
 import SearchResultList from "./../pages/SearchResultList";
 import ThankYou from "../pages/ThankYou";
+import Profile from "../pages/Profile";
 
 const Routers = () => {
   return (
@@ -23,6 +24,7 @@ const Routers = () => {
       <Route path="/food" element={<Food />} />
       <Route path="/allroom" element={<Room />} />
       <Route path="/post" element={<Post />} />
+      <Route path="/profile/:id" element={<Profile />} />
       <Route path="/thank-you" element={<ThankYou />} />
       <Route path="/tour/search" element={<SearchResultList />} />
       <Route path="/login/roll-selection" />

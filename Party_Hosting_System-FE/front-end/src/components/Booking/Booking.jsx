@@ -11,7 +11,7 @@ const Booking = ({ room, avgRating }) => {
   const navigate = useNavigate();
   const [totalAmount, setTotalAmount] = useState(0);
   const [credentials, setCredentials] = useState({
-    userId: "01", //later it will be dynamic
+    userId: sessionStorage.getItem("userId"), //later it will be dynamic
     userEmail: "example@gmail.com",
     fullName: "",
     phone: "",
@@ -23,31 +23,34 @@ const Booking = ({ room, avgRating }) => {
     const { id, value } = e.target;
     setCredentials((prev) => ({ ...prev, [id]: value }));
     // Recalculate total amount whenever guest size changes
-    if (id === "guestSize") {
-      calculateTotalAmount();
-    }
+    // if (id === "guestSize") {
+    //   calculateTotalAmount();
+    // }
+    calculateTotalAmount();
   };
 
-  const serviceFee = 10;
+  const serviceFee = 10000;
 
   const calculateTotalAmount = () => {
     const calculatedTotalAmount =
-      Number(price) * Number(credentials.guestSize) + Number(serviceFee);
+      Number(price)  + Number(serviceFee);
     setTotalAmount(calculatedTotalAmount);
   };
 
   // send data to the server
   const handleClick = (e) => {
     e.preventDefault();
-    navigate("/payment");
+    navigate("/food", { state: { credentials: credentials, room: room } });
+    console.log(credentials );
+    console.log(room);
   };
 
   return (
     <div className="booking">
       <div className="booking__top d-flex align-items-center justify-content-between">
         <h3>
-          ${price}
-          <span>/per person</span>
+          {price} VND
+          <span>/ per person</span>
         </h3>
         <span className="tour__rating d-flex align-items-center">
           <i className="ri-star-s-fill"></i>
@@ -85,13 +88,13 @@ const Booking = ({ room, avgRating }) => {
               required
               onChange={handleChange}
             />
-            <input
+            {/* <input
               type="number"
               placeholder="Guest"
               id="guestSize"
               required
               onChange={handleChange}
-            />
+            /> */}
           </FormGroup>
         </Form>
       </div>
@@ -100,19 +103,19 @@ const Booking = ({ room, avgRating }) => {
       {/* ======== booking bottom  ========= */}
       <div className="booking__bottom">
         <ListGroup>
-          <ListGroupItem className="border-0 px-0">
+          {/* <ListGroupItem className="border-0 px-0">
             <h5 className="d-flex align-items-center gap-1">
               {price} <i class="ri-close-line"></i> 1 person
             </h5>
             <span>{price}</span>
-          </ListGroupItem>
+          </ListGroupItem> */}
           <ListGroupItem className="border-0 px-0">
             <h5>Service charge</h5>
             <span>{serviceFee}</span>
           </ListGroupItem>
           <ListGroupItem className="border-0 px-0 total">
             <h5>Total</h5>
-            <span>${totalAmount}</span>
+            <span>{totalAmount} VND</span>
           </ListGroupItem>
         </ListGroup>
         <Button className="btn primary__btn w-100 mt-4" onClick={handleClick}>

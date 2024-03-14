@@ -1,0 +1,117 @@
+@media (min-width: 1200px) {
+  .custom-col col{
+    width: 450px;
+  }
+}
+.foodList_title {
+  font-weight: 500;
+  font-size: 64px;
+  color: orange;
+  margin-top: 15px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.custom-col {
+  width: 480px;
+  height: 520px;
+}
+
+.food__img img {
+  width: 100%;
+  height: 350px;
+  border-radius: 5px 5px 0 0;
+}
+
+.card {
+  border: none !important;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+
+}
+.goToPayment {
+  width: 100px;
+  height: 60px;
+  margin-top: 20px;
+}
+
+.food__img {
+  position: relative;
+}
+
+
+.food__img span {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: max-content;
+  height: max-content;
+  z-index: 10;
+  color: #fff;
+  background: var(--primary-color);
+  padding: 0.3rem 0.5rem;
+  border-radius: 3px 0 0 0;
+}
+
+.card__top span i{
+  color: var(--secondary-color);
+}
+
+.food__rating{
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.food__location{
+  font-weight: 500;
+  color: var(--heading-color);
+  font-size: 0.9rem;
+}
+
+.food__rating i, 
+.food__location i{
+  font-size: 1rem;
+}
+
+
+.food__title {
+  margin-top: 1rem;
+
+  cursor: pointer;
+}
+
+.food__title a{
+  text-decoration: none;
+  color: var(--heading-color);
+  transition: 0.3s;
+}
+
+.food__title a:hover{
+  color: var(--secondary-color);
+}
+
+.card__bottom h5{
+  color: var(--secondary-color);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.card__bottom h5 span{
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 0.8rem;
+}
+
+.booking__btn{
+  background: var(--secondary-color) !important;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+}
+
+.booking__btn a{
+  text-decoration: none;
+  font-size: 0.9rem;
+  color:#fff
+}
+
+.booking__btn a:hover{
+  color:#fff;
+}
