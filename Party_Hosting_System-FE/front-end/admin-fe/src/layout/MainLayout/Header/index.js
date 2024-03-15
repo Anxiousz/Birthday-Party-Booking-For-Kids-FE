@@ -32,7 +32,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
       >
        
         <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
-        <img src="https://img.upanh.tv/2024/03/14/logo.png" alt="logo.png" style={{ width: '50px', height: '50px' }} border="0"/> 
+        <img src="https://img.upanh.tv/2024/03/15/ff81527d-a837-4947-bdb7-df1fa565a76b.png" alt="logo.png" style={{ width: '55px', height: '55px' }} border="0"/> 
         </Box>
         <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden' }}>
           <Avatar
@@ -57,12 +57,12 @@ const Header = ({ handleLeftDrawerToggle }) => {
       </Box>
 
       {/* header search */}
-      <SearchSection />
+      {/* <SearchSection /> */}
       <Box sx={{ flexGrow: 1 }} />
       <Box sx={{ flexGrow: 1 }} />
 
       {/* notification & profile */}
-      <NotificationSection />
+      {/* <NotificationSection /> */}
       <ProfileSection />
     </>
   );
