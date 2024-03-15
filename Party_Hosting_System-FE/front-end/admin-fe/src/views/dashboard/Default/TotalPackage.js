@@ -4,6 +4,7 @@ import { useState } from 'react';
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
+import Inventory2Icon from '@mui/icons-material/Inventory2';
 
 // third-party
 import Chart from 'react-apexcharts';
@@ -76,7 +77,6 @@ const TotalPackage = ({ isLoading }) => {
   useEffect(() => {
     const fetchTotalPackages = async () => {
       const data = await getTotalPackage();
-      console.log('totalPackages', data);
       if (data !== null) {
         setTotalPackages(data);
       }
@@ -92,25 +92,26 @@ const TotalPackage = ({ isLoading }) => {
       ) : (
         <CardWrapper border={false} content={false}>
           <Box sx={{ p: 2.25 }}>
-            <Grid container direction="column">
+            <Grid container alignItems="center">
+            <Grid item>
+              <Inventory2Icon sx={{ fontSize: '3rem' }}/>
+              </Grid>
               <Grid item>
-                <Grid container alignItems="center">
-                  <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                    {totalPackages ? `${totalPackages}` : 'Không có dữ liệu'}
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Grid item sx={{ mb: 1.25 }}>
-                <Typography
-                  sx={{
-                    fontSize: '1rem',
-                    fontWeight: 500,
-                    color: theme.palette.primary[200]
-                  }}
-                >
-                  Tổng số Gói
-                </Typography>
-              </Grid>
+              <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
+                {totalPackages ? `${totalPackages}` : 'Không có dữ liệu'}
+              </Typography>
+               </Grid>
+            </Grid>
+            <Grid item sx={{ mb: 1.25 }}>
+            <Typography
+              sx={{
+                fontSize: '1rem',
+                fontWeight: 500,
+                color: theme.palette.primary[200]
+              }}
+            >
+              Tổng số Gói
+            </Typography>
             </Grid>
           </Box>
         </CardWrapper>

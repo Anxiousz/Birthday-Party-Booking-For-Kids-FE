@@ -75,8 +75,6 @@ function StaffTable() {
     }
   };
 
-  console.log(managers);
-
   const filteredStaff = managers.filter((staff) => {
     return staff.userName.toLowerCase().includes(searchText.toLowerCase()) || staff.email.toLowerCase().includes(searchText.toLowerCase());
   });

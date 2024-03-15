@@ -46,7 +46,6 @@ const ProfileSection = () => {
   const theme = useTheme();
   const customization = useSelector((state) => state.customization);
   const navigate = useNavigate();
-  const { logout } = useContext(AuthContext);
 
   const [sdm, setSdm] = useState(true);
   const [value, setValue] = useState('');
@@ -59,11 +58,9 @@ const ProfileSection = () => {
   const anchorRef = useRef(null);
 
   const handleLogout = async () => {
-    logout();
-    navigate('/', { replace: true });
+    navigate('/pages/login/login3', { replace: true });
     removeLocalStorage('token');
     removeLocalStorage('USER_INFO');
-    navigate('/', { replace: true });
   };
 
   const handleClose = (event) => {

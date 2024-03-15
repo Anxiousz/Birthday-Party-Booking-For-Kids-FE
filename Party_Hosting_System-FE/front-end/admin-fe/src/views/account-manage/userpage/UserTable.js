@@ -69,8 +69,6 @@ function UserTable() {
     }
   };
 
-  console.log(users);
-
   const filteredUsers = users.filter((user) => {
     return user.userName.toLowerCase().includes(searchText.toLowerCase()) || user.email.toLowerCase().includes(searchText.toLowerCase());
   });

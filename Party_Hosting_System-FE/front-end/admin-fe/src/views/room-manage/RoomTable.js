@@ -46,7 +46,6 @@ function RoomTable() {
           return room;
         })
       );
-      console.log(`Status updated for room with ID ${roomId}`);
     } catch (error) {
       console.error(`Failed to update status for room with ID ${roomId}:`, error);
     }

@@ -55,7 +55,6 @@ function List(props) {
     });
 
     const handlePageChange = (newPage) => {
-        console.log("NewPage", newPage)
         getManagers(newPage, pagination.pageSize);
     };
 

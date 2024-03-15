@@ -71,8 +71,8 @@ function AccountTable() {
           <IconButton
             aria-label="RemoveRedEyeOutlinedIcon"
             onClick={() => {
-              setOpenAccountUpdate(true); // Mở form AcccountUpdate khi nhấp vào nút "RemoveRedEyeOutlinedIcon"
-              setSelectedAccountId(params.row.accountId); // Chọn lái xe dựa trên ID
+              setOpenAccountUpdate(true);
+              setSelectedAccountId(params.row.accountId);
             }}
             color="info"
           >
@@ -92,7 +92,6 @@ function AccountTable() {
   };
 
   const handlePageChange = (newPage) => {
-    console.log('NewPage', newPage);
     getAccounts(newPage, pagination.pageSize);
   };
 

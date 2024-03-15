@@ -48,7 +48,6 @@ const CreateUserForm = ({ onSuccess }) => {
 
     try {
       const response = await createUser(userData);
-      console.log('User created successfully:', response);
       onSuccess();
     } catch (error) {
       console.error('Failed to create user:', error);

@@ -25,7 +25,6 @@ const CreatePackageForm = ({ onSuccess }) => {
 
     try {
       const response = await createPackage(packageData);
-      console.log('Package created successfully:', response);
       onSuccess(); 
       // Xử lý sau khi tạo gói thành công (ví dụ: thông báo, làm mới form, ...)
     } catch (error) {

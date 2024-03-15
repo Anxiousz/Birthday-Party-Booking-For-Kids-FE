@@ -4,6 +4,7 @@ import { useState } from 'react';
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
 import { Avatar, Box, Grid, Menu, MenuItem, Typography } from '@mui/material';
+import FoundationIcon from '@mui/icons-material/Foundation'; // Updated import for FoundationIcon
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -58,7 +59,6 @@ const TotalRoom = ({ isLoading }) => {
   useEffect(() => {
     const fetchTotalRooms = async () => {
       const data = await getTotalRoom(); // Gọi hàm totalRoom để lấy dữ liệu
-      console.log('totalRooms', data);
       if (data !== null) {
         setTotalRooms(data); // Cập nhật state với dữ liệu nhận được
       }
@@ -84,25 +84,26 @@ const TotalRoom = ({ isLoading }) => {
       ) : (
         <CardWrapper border={false} content={false}>
           <Box sx={{ p: 2.25 }}>
-            <Grid container direction="column">
+            <Grid container alignItems="center">
               <Grid item>
-                <Grid container alignItems="center">
-                  <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                    {totalRooms ? `${totalRooms}` : 'null'}
-                  </Typography>{' '}
-                </Grid>
+                <FoundationIcon sx={{ fontSize: '3rem' }} /> {/* Updated icon size */}
               </Grid>
-              <Grid item sx={{ mb: 1.25 }}>
-                <Typography
-                  sx={{
-                    fontSize: '1rem',
-                    fontWeight: 500,
-                    color: theme.palette.secondary[200]
-                  }}
-                >
-                  Tổng số Phòng
+              <Grid item>
+                <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
+                  {totalRooms ? `${totalRooms}` : 'null'}
                 </Typography>
               </Grid>
+            </Grid>
+            <Grid item sx={{ mb: 1.25 }}>
+              <Typography
+                sx={{
+                  fontSize: '1rem',
+                  fontWeight: 500,
+                  color: theme.palette.secondary[200]
+                }}
+              >
+                Tổng số Phòng
+              </Typography>
             </Grid>
           </Box>
         </CardWrapper>

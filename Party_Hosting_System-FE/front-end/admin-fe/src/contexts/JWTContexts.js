@@ -103,7 +103,6 @@ function AuthProvider({ children }) {
         iat: decodedToken.iat,
         exp: decodedToken.exp
       };
-      console.log(user);
       setSession(token);
       setUserInfo(user);
       navigate('/', { replace: true });

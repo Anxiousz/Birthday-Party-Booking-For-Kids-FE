@@ -30,7 +30,6 @@ export default function ManagerForm({ setIsOpen }) {
     if (validate()) {
       addManager(manager)
         .then((data) => {
-          console.log('Manager mới đã được thêm thành công:', data);
           setSnackbarMessage('Manager mới đã được thêm thành công');
           setSnackbarSeverity('success');
           setOpenSnackbar(true);

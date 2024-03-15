@@ -67,11 +67,9 @@ function ManagerTable() {
     // Tìm manager trong mảng managers dựa trên managerId
     const manager = managers.find((manager) => manager.id === managerId);
     if (manager) {
-      console.log('Manager data:', manager);
       setSelectedManagerId(managerId);
       setIsOpenUpdateManager(true);
     } else {
-      console.log('Manager not found');
     }
   };
 

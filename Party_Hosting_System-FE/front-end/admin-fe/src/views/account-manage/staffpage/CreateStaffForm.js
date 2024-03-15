@@ -51,7 +51,6 @@ const CreateStaffForm = ({ onSuccess }) => {
 
     try {
       const response = await createStaff(staffData);
-      console.log('Staff created successfully:', response);
       onSuccess();
     } catch (error) {
       console.error('Failed to create staff:', error);

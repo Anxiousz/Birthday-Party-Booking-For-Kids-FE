@@ -52,7 +52,6 @@ const CreatePartyHostForm = ({ onSuccess }) => {
 
     try {
       const response = await createPartyHost(partyHostData); // Đổi thành hàm API phù hợp
-      console.log('Party Host created successfully:', response);
       onSuccess();
     } catch (error) {
       console.error('Failed to create party host:', error);

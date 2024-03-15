@@ -31,10 +31,10 @@ const MenuList = () => {
       }
 
 // Lọc mục menu 'packages-manage' dựa trên vai trò người dùng
-if (item.id === 'packages-manage') {
-  // Chỉ hiển thị mục 'packages-manage' cho người dùng có vai trò là 'admin'
-  return userRole === '1' ? <NavGroup key={item.id} item={item} /> : null;
-}
+// if (item.id === 'packages-manage') {
+//   // Chỉ hiển thị mục 'packages-manage' cho người dùng có vai trò là 'admin'
+//   return userRole === '1' ? <NavGroup key={item.id} item={item} /> : null;
+// }
 
       // Lọc mục menu 'manager-manage' và 'acccount-manage' như trước
       if (item.id === 'manager-manage' && item.children) {

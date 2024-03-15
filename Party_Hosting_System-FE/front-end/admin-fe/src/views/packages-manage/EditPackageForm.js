@@ -28,8 +28,7 @@ const EditPackageForm = ({ packageInfo, onSuccess }) => {
 
     try {
       const response = await editPackage(packageData);
-      console.log('Package updated successfully:', response);
-      onSuccess(); // Gọi callback thành công, ví dụ: đóng modal và tải lại danh sách
+      onSuccess();
     } catch (error) {
       console.error('Failed to update package:', error);
       // Xử lý lỗi

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
@@ -11,9 +10,8 @@ import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 
 // assets
 import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
-
-//Call API
-import { getStatisticReview } from 'api/statistic';
+import { useEffect, useState } from 'react';
+import { getTotalAccount } from 'api/statistic';
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
@@ -44,27 +42,17 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
 const TotalIncomeLightCard = ({ isLoading }) => {
+  const [totalAccount, setTotalAccount] = useState(null);
   const theme = useTheme();
-  const [statistic, setStatistic] = useState(null);
-
-  const getStatistics = async () => {
-    try {
-      const response = await getStatisticReview();
-      console.log('API Response:', response); // Kiểm tra dữ liệu trả về từ API
-      if (response && response.totalReview !== undefined) {
-        setStatistic(response.totalReview);
-      } else {
-        // Xử lý trường hợp không nhận được dữ liệu mong đợi
-        console.error('Error fetching statistic data:', response ? 'Missing totalIncomeAcccount in response' : 'Response is undefined');
-      }
-    } catch (error) {
-      console.error('Error fetching statistic data:', error);
-    }
-  };
 
   useEffect(() => {
-    getStatistics();
+    const fetchTotalAccount = async () => {
+      const data = await getTotalAccount();
+        setTotalAccount(data); 
+    };
+    fetchTotalAccount();
   }, []);
+
 
   return (
     <>
@@ -74,42 +62,41 @@ const TotalIncomeLightCard = ({ isLoading }) => {
         <CardWrapper border={false} content={false}>
           <Box sx={{ p: 2 }}>
             <List sx={{ py: 0 }}>
-              {statistic && (
-                <ListItem alignItems="center" disableGutters sx={{ py: 0 }}>
-                  <ListItemAvatar>
-                    <Avatar
-                      variant="rounded"
+              <ListItem alignItems="center" disableGutters sx={{ py: 0 }}>
+                <ListItemAvatar>
+                  <Avatar
+                    variant="rounded"
+                    sx={{
+                      ...theme.typography.commonAvatar,
+                      ...theme.typography.largeAvatar,
+                      backgroundColor: theme.palette.warning.light,
+                      color: theme.palette.warning.dark
+                    }}
+                  >
+                    <StorefrontTwoToneIcon fontSize="inherit" />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  sx={{
+                    py: 0,
+                    mt: 0.45,
+                    mb: 0.45
+                  }}
+                  // primary={<Typography variant="h4">{totalAccount}</Typography>}
+                  primary={<Typography variant="h4"  sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>{totalAccount}</Typography>}
+                  secondary={
+                    <Typography
+                      variant="subtitle2"
                       sx={{
-                        ...theme.typography.commonAvatar,
-                        ...theme.typography.largeAvatar,
-                        backgroundColor: theme.palette.warning.light,
-                        color: theme.palette.warning.dark
+                        color: theme.palette.grey[500],
+                        mt: 0.5
                       }}
                     >
-                      <StorefrontTwoToneIcon fontSize="inherit" />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    sx={{
-                      py: 0,
-                      mt: 0.45,
-                      mb: 0.45
-                    }}
-                    primary={<Typography variant="h4">{statistic}</Typography>}
-                    secondary={
-                      <Typography
-                        variant="subtitle2"
-                        sx={{
-                          color: theme.palette.grey[500],
-                          mt: 0.5
-                        }}
-                      >
-                        Tổng lượt đánh giá
-                      </Typography>
-                    }
-                  />
-                </ListItem>
-              )}
+                      Tổng số tài khoản
+                    </Typography>
+                  }
+                />
+              </ListItem>
             </List>
           </Box>
         </CardWrapper>
