@@ -54,7 +54,15 @@
 .card__top span i{
   color: var(--secondary-color);
 }
+.quantity_input {
+  width: 100px;
+  height: 40px;
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  font-size: 1rem;
+  margin: 0 0.5rem;
 
+}
 .food__rating{
   font-size: 0.9rem;
   color: var(--text-color);

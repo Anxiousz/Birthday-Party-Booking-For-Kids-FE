@@ -34,7 +34,7 @@ const TourCard = ({ room }) => {
   // Function to handle onClick event
   const handleLinkClick = () => {
     fetch(
-      `https://partyhostingsystem.azurewebsites.net/api/v1/Room/GetRoomPartyHost/${roomId}`
+      `https://partyhostingsystems.azurewebsites.net/api/v1/Room/GetRoomPartyHost/${roomId}`
     )
       .then((response) => response.json())
       .then((roomData) => {

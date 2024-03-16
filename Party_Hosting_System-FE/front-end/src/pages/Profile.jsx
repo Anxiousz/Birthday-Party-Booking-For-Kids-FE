@@ -21,7 +21,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
 
   const url =
-    "https://partyhostingsystem.azurewebsites.net/api/v1/RegisteredUser/2";
+    "https://partyhostingsystems.azurewebsites.net/api/v1/RegisteredUser/2";
     useEffect(() => {
         fetchProfileData(); // Fetch profile data when component mounts
       }, []);
@@ -29,8 +29,8 @@ const Profile = () => {
     try {
         const id = location.pathname.split("/").pop();
       const response = await fetch(
-        `https://partyhostingsystem.azurewebsites.net/api/v1/RegisteredUser/${id}`
-        // `https://partyhostingsystem.azurewebsites.net/api/v1/RegisteredUser/2`
+        `https://partyhostingsystems.azurewebsites.net/api/v1/RegisteredUser/${id}`
+        // `https://partyhostingsystems.azurewebsites.net/api/v1/RegisteredUser/2`
         , {
             method: "GET",
             headers: {

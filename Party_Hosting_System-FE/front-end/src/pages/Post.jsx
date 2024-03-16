@@ -22,7 +22,7 @@ const Post = () => {
   const fetchPostData = async () => {
     try {
       const response = await fetch(
-        "https://partyhostingsystem.azurewebsites.net/api/v1/Post",
+        "https://partyhostingsystems.azurewebsites.net/api/v1/Post",
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
@@ -38,7 +38,7 @@ const Post = () => {
     }
   };
   const endpoint = store;
-  const apiUrl = "https://partyhostingsystem.azurewebsites.net/api/v1/Post";
+  const apiUrl = "https://partyhostingsystems.azurewebsites.net/api/v1/Post";
   const createPostData = async (data) => {
     try {
       axios

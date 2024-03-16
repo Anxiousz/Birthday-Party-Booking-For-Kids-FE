@@ -6,7 +6,7 @@ const PostCard = ({ store }) => {
   const { postId, title, context, image, status } = store;
 
   const handleLinkClick = () => {
-    fetch(`https://partyhostingsystem.azurewebsites.net/api/v1/Post/${postId}`)
+    fetch(`https://partyhostingsystems.azurewebsites.net/api/v1/Post/${postId}`)
       .then((response) => response.json())
       .then((postData) => {
         // Navigate to TourDetails with room data

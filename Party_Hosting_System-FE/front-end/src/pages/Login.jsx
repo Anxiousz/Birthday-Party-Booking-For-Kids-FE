@@ -42,7 +42,7 @@ const Login = () => {
   ];
 
   const postData = (selectedOption) => {
-    const apiUrl = "https://partyhostingsystem.azurewebsites.net/api/v1/Login/";
+    const apiUrl = "https://partyhostingsystems.azurewebsites.net/api/v1/Login/";
     const endpoint = selectedOption.value;
     axios
       .post(apiUrl + endpoint, credentials)
@@ -50,6 +50,7 @@ const Login = () => {
         sessionStorage.setItem("authToken", res.data.token);
         sessionStorage.setItem("username", res.data.username);
         sessionStorage.setItem("userId", res.data.id);
+        sessionStorage.setItem("role", option.value);
         console.log(res.data);
         setShowAlert(true);
         setTimeout(() => {

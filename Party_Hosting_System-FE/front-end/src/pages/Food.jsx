@@ -10,28 +10,32 @@ import {
   CardTitle,
   CardText,
   Button,
+  Input
 } from "reactstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/food.css";
 export default function Food() {
-  const [id, setId] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [foodData, setFoodData] = useState([]);
   const authToken = sessionStorage.getItem("authToken");
   const userId = sessionStorage.getItem("userId");
   const location = useLocation();
   const { credentials, room } = location.state || {};
   const [paymentData, setPaymentData] = useState({
-    userId: userId,
+    accID: userId,
     roomId: String(room.roomId),
-    menuOrderID: undefined,
+    foodOrderId: undefined,
+    quantity: "1",
   });
   const navigate = useNavigate();
-  const urlPayment = "https://partyhostingsystem.azurewebsites.net/create-payment-link"
+  const [selectedItem, setSelectedItem] = useState(null);
+  const urlPayment =
+    "https://partyhostingsystems.azurewebsites.net/create-payment-link";
   useEffect(() => {
     const fetchData = async () => {
       // try {
       //   const res = await axios
-      //   .get(`https://partyhostingsystem.azurewebsites.net/api/v1/MenuPartyHost/PartyHostId?partyHostid=${room.partyHostId}`
+      //   .get(`https://partyhostingsystems.azurewebsites.net/api/v1/MenuPartyHost/PartyHostId?partyHostid=${room.partyHostId}`
       //   , {
       //     headers: {
       //       Authorization: `Bearer ${authToken}`,
@@ -45,7 +49,7 @@ export default function Food() {
       // }
       try {
         const response = await fetch(
-          `https://partyhostingsystem.azurewebsites.net/api/v1/MenuPartyHost/PartyHostId?partyHostid=${room.partyHostId}`,
+          `https://partyhostingsystems.azurewebsites.net/api/v1/MenuPartyHost/PartyHostId?partyHostid=${room.partyHostId}`,
           {
             headers: {
               Authorization: `Bearer ${authToken}`,
@@ -68,40 +72,60 @@ export default function Food() {
     fetchData();
   }, []);
 
-
   const goToPayment = () => {
     const config = {
-      headers: { Authorization: `Bearer ${authToken}` }
+      headers: { Authorization: `Bearer ${authToken}` },
     };
-    axios.post(urlPayment, paymentData, config)
-    .then((res) => {
-      console.log(res.data);
-      // navigate(res.data);
-      window.location.href = res.data;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-
-  };
-  const fetchFoodData = async () => {
-    try {
-      const res = await axios.post(
-        urlPayment, paymentData,
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
-      );
-      console.log(res.data);
-    } catch (error) {
-      console.error("Error fetching food details:", error);
-    }
+    axios
+      .post(urlPayment, paymentData, config)
+      .then((res) => {
+        console.log(res.data);
+        // navigate(res.data);
+        window.location.href = res.data;
+        console.log(paymentData);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
-  const handleIdChange = (e) => {
-    setId(e.target.value);
+
+
+  {/*Old transaction */}
+
+  // const fetchFoodData = async () => {
+  //   try {
+  //     const res = await axios.post(urlPayment, paymentData, {
+  //       headers: {
+  //         Authorization: `Bearer ${authToken}`,
+  //       },
+  //     });
+  //     console.log(res.data);
+  //   } catch (error) {
+  //     console.error("Error fetching food details:", error);
+  //   }
+  // };
+  const handleChange = (e) => {
+    setPaymentData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+  const handleAddClick = (item) => {
+    setSelectedItem(item.foodOrderId);
+  };
+  const checkingdata = () => {
+    console.log(paymentData);
+  }
+  const handleCheckClick = async (item) => {
+    // Update paymentData with foodOrderId and quantity
+    setPaymentData(prev => ({
+      ...prev,
+      foodOrderId: String(item.foodOrderId),
+      quantity: paymentData.quantity
+    }));
+    setIsSubmitted(true);
+    console.log(paymentData)
+    // Reset selectedItem and quantity
+    setSelectedItem(null);
+    setPaymentData(prev => ({ ...prev, quantity: 0 }));
   };
 
   return (
@@ -125,12 +149,47 @@ export default function Food() {
                   </h5>
                   <div className="card__bottom d-flex align-items-center justify-content-between mt-3">
                     <h5>{item.price} VND</h5>
-                    <button className="btn booking__btn" onClick={() => {
+                    {/* <button
+                      className="btn booking__btn"
+                      onClick={() => String(item.foodOrderId)}
+                    >  Add 
+                    </button> */}
+                    {selectedItem === item.foodOrderId ? (
+                      <form onSubmit={() => handleCheckClick(item)}>
+                        <Row>
+                          <Col>
+                          <div className="quantity_input">
+                        <Input
+                          type="number"
+                          id="quantity"
+                          value={paymentData.quantity}
+                          onChange={handleChange}
+                          min={1}
+                          required
+                        />
+                        </div>
+                          </Col>
+                        </Row>
+
+                        
+                        <button type="submit" className="btn booking__btn">
+                          Check
+                        </button>
+                      </form>
+                    ) : (
+                      <button
+                        className="btn booking__btn"
+                        onClick={() => handleAddClick(item)}
+                      >
+                        Add
+                      </button>
+                    )}
+                    {/* <button className="btn booking__btn" onClick={() => {
                     setPaymentData(prev => ({
                       ...prev,
                       menuOrderID: String(item.foodOrderId)
                     }));
-                  }}>Add</button>
+                  }}>Add</button> */}
                   </div>
                 </CardBody>
               </Card>

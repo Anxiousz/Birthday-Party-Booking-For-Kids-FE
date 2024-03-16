@@ -13,7 +13,7 @@ export const FeatureTourList = () => {
   const fetchRoomData = async () => {
     try {
       const response = await fetch(
-        "https://partyhostingsystem.azurewebsites.net/api/v1/Room/GetAllRoom"
+        "https://partyhostingsystems.azurewebsites.net/api/v1/Room/GetAllRoom"
       );
       const data = await response.json();
       setRoomData(data);

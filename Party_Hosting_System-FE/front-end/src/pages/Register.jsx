@@ -54,7 +54,7 @@ const Register = () => {
       setData((prev) => ({ ...prev, packageId: "2" }));
     }
  };
-  const url = rSelected === 1 ? 'https://partyhostingsystem.azurewebsites.net/api/v1/Register/RegisteredUser' : 'https://partyhostingsystem.azurewebsites.net/api/v1/Register/PartyHost';
+  const url = rSelected === 1 ? 'https://partyhostingsystems.azurewebsites.net/api/v1/Register/RegisteredUser' : 'https://partyhostingsystems.azurewebsites.net/api/v1/Register/PartyHost';
   // Hàm xử lý submit form
   const handleSubmit = (e) => {
     e.preventDefault();
