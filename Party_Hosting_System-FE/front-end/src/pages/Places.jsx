@@ -50,7 +50,7 @@ const Places = () => {
           </Col>
         </Container>
       </section>
-      <Newsletter />
+      
     </>
   );
 };

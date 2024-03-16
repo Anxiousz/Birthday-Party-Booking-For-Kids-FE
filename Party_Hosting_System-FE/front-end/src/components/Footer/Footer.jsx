@@ -45,8 +45,9 @@ const Footer = () => {
             <div className="logo">
               <img src={logo} alt="" />
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Adipisci et consequatur culpa officiis quisquam explicabo
+                 To provide a platform for people to book and host parties.
+                 We service a best experience for our customers.
+
               </p>
               <div className="social__links d-flex align-items-center gap-4">
                 <span>

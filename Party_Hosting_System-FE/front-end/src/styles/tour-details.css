@@ -53,7 +53,11 @@
 .tour__reviews h4{
     margin-bottom: 3rem;
 }
-
+.feedback_form {
+    border: #333;
+    padding: 20px;
+    margin: 25px 0; 
+}
 .review__input{
     display: flex;
     align-items: center;

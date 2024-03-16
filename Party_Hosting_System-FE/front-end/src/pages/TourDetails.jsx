@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { Container, Row, Col } from "reactstrap"; // Import Container, Row, Col from reactstrap
+import { Container, Row, Col, Form, Input, InputGroup, InputGroupText } from "reactstrap"; // Import Container, Row, Col from reactstrap
 import Newsletter from "../shared/Newsletter"; // Import Newsletter component
 import "../styles/tour-details.css";
 import Booking from "../components/Booking/Booking";
@@ -93,9 +93,19 @@ const TourDetails = () => {
                 <Booking room={roomData} />
               </Col>
             </Row>
+            <div className="feedback_form">
+            <Row>
+              <Col lg="12">
+                <Form>
+                  <Input></Input>
+                </Form>
+              </Col>
+            </Row>
+            </div>
+            
           </Container>
         </section>
-        <Newsletter />
+       
       </>
     )
     

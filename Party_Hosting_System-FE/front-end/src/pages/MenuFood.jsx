@@ -28,7 +28,7 @@ const MenuFood = () => {
       Authorization: `Bearer ${authToken}`,
     },
 }
-    const foodUrl = `https://partyhostingsystems.azurewebsites.net/api/v1/MenuPartyHost/`;
+    const foodUrl = `https://partyhostingsystems.azurewebsites.net/api/v1/MenuOrder/GetMenuOrderByID/`;
     useEffect(() => {
         const fetchData = async () => {
             try {
