@@ -7,7 +7,9 @@ import Login from "./../pages/Login";
 import About from "./../pages/About";
 import Room from "./../pages/Room";
 import Food from "./../pages/Food";
+import MenuFood from "./../pages/MenuFood";
 import Post from "./../pages/Post";
+import BookingHistory from "../pages/BookingHistory";
 import SearchResultList from "./../pages/SearchResultList";
 import ThankYou from "../pages/ThankYou";
 import Profile from "../pages/Profile";
@@ -22,6 +24,8 @@ const Routers = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/about" element={<About />} />
       <Route path="/food" element={<Food />} />
+      <Route path="/menufood" element={<MenuFood />} />
+      <Route path="/bookinghistory" element={<BookingHistory />} />
       <Route path="/allroom" element={<Room />} />
       <Route path="/post" element={<Post />} />
       <Route path="/profile/:id" element={<Profile />} />

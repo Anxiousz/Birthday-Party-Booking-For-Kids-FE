@@ -23,7 +23,13 @@ const Login = () => {
     email: undefined,
     password: undefined,
   });
-  const [selectedOption, setSelectedOption] = useState(null);
+  const option = [
+    { value: "RegisteredUser", label: "User" },
+    { value: "PartyHost", label: "Host" },
+    // { value: "Staff", label: "Staff" },
+    // { value: "Admin", label: "Admin" },
+  ];
+  const [selectedOption, setSelectedOption] = useState(option[0]);
   const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
 
@@ -34,12 +40,7 @@ const Login = () => {
   const handleClick = (e) => {
     e.preventDefault();
   };
-  const option = [
-    { value: "RegisteredUser", label: "User" },
-    { value: "PartyHost", label: "Host" },
-    { value: "Staff", label: "Staff" },
-    { value: "Admin", label: "Admin" },
-  ];
+  
 
   const postData = (selectedOption) => {
     const apiUrl = "https://partyhostingsystems.azurewebsites.net/api/v1/Login/";
@@ -50,12 +51,13 @@ const Login = () => {
         sessionStorage.setItem("authToken", res.data.token);
         sessionStorage.setItem("username", res.data.username);
         sessionStorage.setItem("userId", res.data.id);
-        sessionStorage.setItem("role", option.value);
-        console.log(res.data);
+        sessionStorage.setItem("role", selectedOption.value);
+        // console.log(res.data);
         setShowAlert(true);
         setTimeout(() => {
           navigate("/home");
-        }, 2000);
+        }, 500);
+        // console.log(res.data)
       })
       .catch((err) => {
         console.log(err);
@@ -122,6 +124,7 @@ const Login = () => {
                     options={option}
                     onChange={setSelectedOption}
                     defaultValue={option[0]}
+                    
                     /* cái này là bảng dropdown để chọn roll*/
                   ></Select>
                   <Button

@@ -85,6 +85,7 @@ export default function Food() {
         console.log(paymentData);
       })
       .catch((error) => {
+        console.log(paymentData);
         console.error("Error:", error);
       });
   };
@@ -125,8 +126,7 @@ export default function Food() {
     console.log(paymentData)
     // Reset selectedItem and quantity
     setSelectedItem(null);
-    setPaymentData(prev => ({ ...prev, quantity: 0 }));
-  };
+    };
 
   return (
     <Container>
@@ -164,7 +164,7 @@ export default function Food() {
                           id="quantity"
                           value={paymentData.quantity}
                           onChange={handleChange}
-                          min={1}
+                          min="1"
                           required
                         />
                         </div>

@@ -7,9 +7,13 @@ import Footer from "./../Footer/Footer";
 const Layout = () => {
   return (
   <>
+ <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
   <Header/>
-  <Routers/>
+  <div style={{ flex: 1 }}>
+    <Routers/>
+  </div>
   <Footer/>
+</div>
   </>
   );
 }

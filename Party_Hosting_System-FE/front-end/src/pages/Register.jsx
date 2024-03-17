@@ -38,14 +38,21 @@ const Register = () => {
     gender: undefined,
   });
   const handleChange = (e) => {
+    const {  id, name, value  } = e.target;
+    
+    if (name === 'password') {
+      const passwordValidation = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+      if (!value.match(passwordValidation)) {
+        alert('Password must contain at least 8 characters, 1 lowercase letter, 1 uppercase letter, and 1 number');
+        return;
+      }
+    }
     setData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
     console.log(data);
-    console.log(rSelected);
-    console.log(url);
   };
   //From đăng kí  account
   const navigate = useNavigate();
- const changePostUrl = rSelected => {
+  const changePostUrl = (rSelected) => {
     if (rSelected === 1) {
       setData((prev) => ({ ...prev, staffId: "5" }));
       setData((prev) => ({ ...prev, packageId: "1" }));
@@ -53,8 +60,11 @@ const Register = () => {
       setData((prev) => ({ ...prev, staffId: "6" }));
       setData((prev) => ({ ...prev, packageId: "2" }));
     }
- };
-  const url = rSelected === 1 ? 'https://partyhostingsystems.azurewebsites.net/api/v1/Register/RegisteredUser' : 'https://partyhostingsystems.azurewebsites.net/api/v1/Register/PartyHost';
+  };
+  const url =
+    rSelected === 1
+      ? "https://partyhostingsystems.azurewebsites.net/api/v1/Register/RegisteredUser"
+      : "https://partyhostingsystems.azurewebsites.net/api/v1/Register/PartyHost";
   // Hàm xử lý submit form
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,15 +72,11 @@ const Register = () => {
     postData(data);
   };
 
-
   //đang thử nghiệm form đăng kí thu thập thông tin
   // Define the function
   const postData = (data) => {
     axios
-      .post(
-        url,
-        data
-      )
+      .post(url, data)
       .then((res) => {
         console.log(data);
         console.log(res);
@@ -107,7 +113,9 @@ const Register = () => {
               </div>
 
               {/* checking first form data */}
-
+              <Col xs="auto">
+                <h5>User name</h5>
+              </Col>
               {!valid && (
                 <input
                   class="form-field"
@@ -118,7 +126,9 @@ const Register = () => {
                   onChange={handleChange}
                 />
               )}
-
+              <Col xs="auto">
+                <h5>Email</h5>
+              </Col>
               {!valid && (
                 <input
                   class="form-field"
@@ -129,6 +139,9 @@ const Register = () => {
                   onChange={handleChange}
                 />
               )}
+              <Col xs="auto">
+                <h5>Password</h5>
+              </Col>
               {!valid && (
                 <input
                   class="form-field"
@@ -168,7 +181,9 @@ const Register = () => {
                   handleChange(password)
                 }
               /> */}
-
+              <Col xs="auto">
+                <h5>Phone</h5>
+              </Col>
               {!valid && (
                 <input
                   class="form-field"
@@ -183,10 +198,10 @@ const Register = () => {
               <ButtonGroup className="d-flex flex-column">
                 <Row>
                   <Col xs="auto">
-                    <h5>Gender</h5> 
+                    <h5>Gender</h5>
                   </Col>
                 </Row>
-                <Row >
+                <Row>
                   <Col xs="auto">
                     <Button
                       value="female"
@@ -194,7 +209,7 @@ const Register = () => {
                       id="gender"
                       outline
                       onClick={handleChange}
-                      active={data.gender === 'female'}
+                      active={data.gender === "female"}
                     >
                       Female
                     </Button>
@@ -206,7 +221,7 @@ const Register = () => {
                       id="gender"
                       outline
                       onClick={handleChange}
-                      active={data.gender === 'male'}
+                      active={data.gender === "male"}
                     >
                       Male
                     </Button>
@@ -214,6 +229,9 @@ const Register = () => {
                 </Row>
               </ButtonGroup>
               <br />
+              <Col xs="auto">
+                    <h5>Birth Day</h5> 
+                  </Col>
               {!valid && (
                 <input
                   class="form-field"
@@ -221,10 +239,13 @@ const Register = () => {
                   placeholder="Date of Birth"
                   id="birthDay"
                   name="birthDay"
+                  max={new Date(new Date().setDate(new Date().getDate()-1)).toISOString().split('T')[0]}
                   onChange={handleChange}
                 />
               )}
-
+              <Col xs="auto">
+                    <h5>Address</h5> 
+                  </Col>
               {!valid && (
                 <input
                   className="form-field"

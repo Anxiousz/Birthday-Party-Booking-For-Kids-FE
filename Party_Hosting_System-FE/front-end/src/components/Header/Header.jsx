@@ -24,8 +24,8 @@ const nav__links = [
     display: "About",
   },
   {
-    path: "/allroom",
-    display: "Places",
+    path: "/menufood",
+    display: "Menu Food",
   },
   {
     path: "/post",
@@ -41,6 +41,7 @@ const Header = (props) => {
   const isLoggedIn = !!sessionStorage.getItem("authToken");
   const userName = sessionStorage.getItem("username");
   const userId = sessionStorage.getItem("userId");
+  const role = sessionStorage.getItem("role");
   const stickyHeaderFunc = () => {
     window.addEventListener("scroll", () => {
       if (
@@ -53,9 +54,13 @@ const Header = (props) => {
       }
     });
   };
+  // console.log(userName, userId, role, isLoggedIn,);
   const handleLogout = () => {
     // Remove session or perform any necessary logout logic here
     sessionStorage.removeItem("authToken");
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("role");
     <Alert>
       <h4 className="alert-heading">Your have Logout!</h4>
     </Alert>;
@@ -150,7 +155,7 @@ const Header = (props) => {
                         <Link to={`/profile/${userId}`}>Profile</Link>
                         </DropdownItem>
                         <DropdownItem>
-                          <Link to="/profile">Booking History</Link>
+                          <Link to="/bookinghistory">Booking History</Link>
                         </DropdownItem>
                         <DropdownItem onClick={handleLogout}>
                             Logout
