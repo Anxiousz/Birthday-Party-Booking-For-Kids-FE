@@ -18,6 +18,7 @@ import {
   ModalFooter,
 } from "reactstrap";
 import { useLocation, useNavigate } from "react-router-dom";
+import "../styles/bookingHistory.css";
 
 const BookingHistory = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -28,7 +29,7 @@ const BookingHistory = () => {
   const toggle2 = () => setModal2(!modal2);
   const toggle3 = () => setModal3(!modal3);
   const [bookingData, setBookingData] = useState([]);
-  const [backdrop] = useState("static");
+  const [backdrop] = useState(false);
   const authToken = sessionStorage.getItem("authToken");
   const userId = sessionStorage.getItem("userId");
   const config = {
@@ -57,7 +58,7 @@ const BookingHistory = () => {
   }, [urlBooking]);
 
   return (
-    <Container>
+    <Container className="form-container" style={{ marginTop: "45px" }}>
       <Row>
         {bookingData.map((booking) => (
           <Col key={booking.bookingId} sm="12" md="6" lg="4" xl="3"></Col>
@@ -84,25 +85,63 @@ const BookingHistory = () => {
                 lg="4"
                 xl="3"
               >
-                <td>{index + 1}</td>
-                <td><Button color="link" onClick={toggle2}>
-    {booking.room.roomName}
-  </Button></td>
+                <td style={{ verticalAlign: "middle" }}>{index + 1}</td>
                 <td>
+                  <Button color="link" onClick={toggle2}>
+                    {booking.room.roomName}
+                  </Button>
+                </td>
+                <td style={{ verticalAlign: "middle" }}>
                   {" "}
                   <Button color="info" onClick={toggle}>
                     {" "}
                     List Food{" "}
                   </Button>{" "}
                 </td>
-                <td>
-                  {booking.transaction.payment.paymentStatus === 0
+                <td style={{ verticalAlign: "middle" }}>
+                  <Button
+                    color={
+                      booking.bookingStatus === 0
+                        ? "danger"
+                        : booking.bookingStatus === 1 &&
+                          booking.transaction.payment.paymentStatus !== 0
+                        ? "success"
+                        : "warning"
+                    }
+                  >
+                    {booking.bookingStatus === 0
+                      ? "Fail"
+                      : booking.bookingStatus === 1 &&
+                        booking.transaction.payment.paymentStatus !== 0
+                      ? "Success"
+                      : "Pending"}
+                  </Button>
+                  {/* {booking.transaction.payment.paymentStatus === 0
                     ? "Fail"
-                    : "Success"}
+                    : "Success"} */}
                 </td>
-                <td><Button color="link" onClick={toggle3}>
-    {booking.transaction.payment.paymentStatus === 0 ? 'Fail' : 'Success'}
-  </Button></td>
+                <td style={{ verticalAlign: "middle" }}>
+                  {/* <Button color="link" onClick={toggle3}>
+                    {booking.transaction.payment.paymentStatus === 0
+                      ? "Fail"
+                      : "Success"}
+                  </Button> */}
+                  <Button
+                    color={
+                      booking.transaction.payment.paymentStatus === 0
+                        ? "danger"
+                        : booking.transaction.payment.paymentStatus === 1
+                        ? "success"
+                        : "warning"
+                    } onClick={toggle3}
+                  >
+                    {booking.transaction.payment.paymentStatus === 0
+                      ? "Fail"
+                      : booking.transaction.payment.paymentStatus === 1
+                      ? "Success"
+                      : "Pending"}
+                  </Button>
+                </td>
               </tr>
               {/* table for List Food  */}
               <div>
@@ -128,14 +167,18 @@ const BookingHistory = () => {
                   <ModalHeader toggle={toggle2}>Room Details</ModalHeader>
                   <ModalBody>
                     <div className="room_img_table">
-                        <img src={booking.room.image} alt={booking.room.roomName} style={{ width: '400px', height: '250px' }}/>
-                       <br />
+                      <img
+                        src={booking.room.image}
+                        alt={booking.room.roomName}
+                        style={{ width: "400px", height: "250px" }}
+                      />
+                      <br />
                     </div>
                     Room name: {booking.room.roomName} <br />
                     Room Type: {booking.room.roomType} <br />
                     Capacity: {booking.room.capacity} <br />
                     Price: {booking.room.price} <br />
-                    Location: {booking.room.location} <br />                
+                    Location: {booking.room.location} <br />
                   </ModalBody>
                   <ModalFooter>
                     <Button color="secondary" onClick={toggle2}>
@@ -150,7 +193,13 @@ const BookingHistory = () => {
                   <ModalHeader toggle={toggle3}>
                     List of Food had order
                   </ModalHeader>
-                  <ModalBody>
+                  <ModalBody
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                    }}
+                  >
                     Payment Method: {booking.transaction.payment.paymentMethod}{" "}
                     <br />
                     Amount: {booking.transaction.payment.amount} <br />

@@ -1,19 +1,27 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./search-bar.css";
 import { Col, Form, FormGroup } from "reactstrap";
-
+import axios from "axios";
 export const SearchBar = () => {
-  const locationRef = useRef("");
+  // const locationRef = useRef("");
   const distanceRef = useRef("");
   const maxGroupSizeRef = useRef("");
-
-  const searchHandler = () => {
-    const location = locationRef.current.value;
-    const distance = distanceRef.current.value;
-    const maxGroupSize = maxGroupSizeRef.current.value;
-
-    if (location === "" || distance === "" || maxGroupSize === "") {
+  const [location,setLocation ] = useState("");
+  const onChangelocation = (e) => {
+    setLocation(e.target.value);
+    console.log(location)
+  };
+  const search = async () => {
+    if (location === "") {
       return alert("All field are required");
+    }
+    try {
+      const urlSearch = `https://partyhostingsystems.azurewebsites.net/SearchRoom/roomName?context=${location}`;
+      await axios.post(urlSearch).then((res) => {
+        console.log(res.data);
+      });
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 
@@ -29,12 +37,13 @@ export const SearchBar = () => {
               <h6>Location</h6>
               <input
                 type="text"
-                placeholder="Where are you going?"
-                ref={locationRef}
+                placeholder="Search Room Here"
+                onChange={onChangelocation}
+                // ref={locationRef}
               />
             </div>
           </FormGroup>
-          <FormGroup className="d-flex gap-3 form__group form__group-fast">
+          {/* <FormGroup className="d-flex gap-3 form__group form__group-fast">
             <span>
               <i class="ri-map-pin-time-line"></i>
             </span>
@@ -46,17 +55,8 @@ export const SearchBar = () => {
                 ref={distanceRef}
               />
             </div>
-          </FormGroup>
-          <FormGroup className="d-flex gap-3 form__group form__group-fast">
-            <span>
-              <i class="ri-group-line"></i>
-            </span>
-            <div>
-              <h6>MaxPeople</h6>
-              <input type="number" placeholder="0" ref={maxGroupSizeRef} />
-            </div>
-          </FormGroup>
-          <span className="search__icon" type="submit" onClick={searchHandler}>
+          </FormGroup> */}
+          <span className="search__icon" type="submit" onClick={search}>
             <i class="ri-search-line"></i>
           </span>
         </Form>

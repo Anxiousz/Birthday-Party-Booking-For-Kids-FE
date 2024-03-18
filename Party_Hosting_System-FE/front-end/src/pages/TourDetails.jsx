@@ -29,7 +29,7 @@ const TourDetails = () => {
     try {
       const roomId = location.pathname.split("/").pop(); // Extract roomId from URL
       const response = await fetch(
-        `https://partyhostingsystems.azurewebsites.net/roomID?id=${roomId}`
+        `https://partyhostingsystems.azurewebsites.net/api/v1/Room/GetRoomDetails/roomID?id=${roomId}`
       );
             if (!response.ok) {
         throw new Error("Failed to fetch room details");

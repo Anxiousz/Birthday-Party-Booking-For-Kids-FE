@@ -72,11 +72,11 @@ export default function Food() {
     fetchData();
   }, []);
 
-  const goToPayment = () => {
+  const goToPayment = async () => {
     const config = {
       headers: { Authorization: `Bearer ${authToken}` },
     };
-    axios
+    await axios
       .post(urlPayment, paymentData, config)
       .then((res) => {
         console.log(res.data);

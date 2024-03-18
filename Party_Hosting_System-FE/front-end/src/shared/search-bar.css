@@ -13,9 +13,10 @@
 
 .form__group input{
     border: none;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color : var(--heading-color);
     font-weight:500;
+    width: 400px;
 }
 
 .form__group input:focus{
