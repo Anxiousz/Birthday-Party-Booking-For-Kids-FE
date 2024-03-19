@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import "./booking.css";
 
-import { Form, FormGroup, ListGroup, ListGroupItem, Button } from "reactstrap";
+import {
+  Form,
+  FormGroup,
+  ListGroup,
+  ListGroupItem,
+  Button,
+  Col,
+  Row,
+} from "reactstrap";
 import { useNavigate, Link } from "react-router-dom";
 import Payment from "../../pages/Payment";
 
@@ -18,7 +26,23 @@ const Booking = ({ room, avgRating }) => {
     guestSize: 1,
     bookAt: "",
   });
+  const today = new Date().toISOString().split("T")[0];
 
+  const [timeStart, setTimeStart] = useState("");
+  const [timeEnd, setTimeEnd] = useState("");
+  const [bookAt, setBookAt] = useState("");
+  const parseDate = (dateStr) => {
+    // Split the date and time parts
+    const [datePart, timePart] = dateStr.split(', ');
+  
+    // Split the date into day, month, and year
+    const [day, month, year] = datePart.split('/');
+  
+    // Combine the year, month, day, and time into the desired format
+    const result = `${year}-${month}-${day}T${timePart}`;
+  
+    return result;
+  };
   const handleChange = (e) => {
     const { id, value } = e.target;
     setCredentials((prev) => ({ ...prev, [id]: value }));
@@ -32,18 +56,78 @@ const Booking = ({ room, avgRating }) => {
   const serviceFee = 10000;
 
   const calculateTotalAmount = () => {
-    const calculatedTotalAmount =
-      Number(price)  + Number(serviceFee);
+    const calculatedTotalAmount = Number(price) + Number(serviceFee);
     setTotalAmount(calculatedTotalAmount);
+  };
+  const handleChangeTime = (e) => {
+    setShowTimeInputs(true);
   };
 
   // send data to the server
   const handleClick = (e) => {
     e.preventDefault();
-    navigate("/food", { state: { credentials: credentials, room: room } });
-    console.log(credentials );
+    if (!bookAt || !timeStart || !timeEnd) {
+      alert("Please select both start and end times.");
+      return;
+    }
+
+    const start = new Date(`${bookAt}T${timeStart}`);
+    const end = new Date(`${bookAt}T${timeEnd}`);
+    // const start = new Date(timeStart);
+    // const end = new Date(timeEnd);
+
+    if (isNaN(start) || isNaN(end)) {
+      alert("Invalid date or time. Please try again.");
+      return;
+    }
+
+    if (
+      start.getHours() < 8 ||
+      start.getHours() > 22 ||
+      end.getHours() < 8 ||
+      end.getHours() > 22
+    ) {
+      alert("Please select a time between 8 AM and 10 PM.");
+      return;
+    }
+    const timeStartStr = start.toLocaleString("en-GB", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+    const timeEndStr = end.toLocaleString("en-GB", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+  
+    const startDate = parseDate(timeStartStr);
+    const endDate = parseDate(timeEndStr);
+
+    console.log(start, end);
+    const timeBooking = {
+      timeStart: startDate,
+      timeEnd: endDate,
+    };
+
+    if (start.getTime() > end.getTime()) {
+      alert("Start time cannot be later than end time.");
+      return;
+    }
+
+    setShowTimeInputs(true);
+    navigate("/food", { state: { credentials: credentials, room: room ,timeBooking: timeBooking} });
+    console.log(credentials);
     console.log(room);
+    console.log(timeBooking)
   };
+  const [showTimeInputs, setShowTimeInputs] = useState(false);
 
   return (
     <div className="booking">
@@ -60,26 +144,8 @@ const Booking = ({ room, avgRating }) => {
 
       {/* ======== booking form ========= */}
       <div className="booking__form">
-        <h5>Information</h5>
-        <Form className="booking__info-form" onSubmit={handleClick}>
-          <FormGroup>
-            <input
-              type="text"
-              placeholder="Full Name"
-              id="fullName"
-              required
-              onChange={handleChange}
-            />
-          </FormGroup>
-          <FormGroup>
-            <input
-              type="number"
-              placeholder="Phone"
-              id="phone"
-              required
-              onChange={handleChange}
-            />
-          </FormGroup>
+        <h5>Booking Date</h5>
+        {/* <Form className="booking__info-form" onSubmit={handleClick}>
           <FormGroup className="d-flex align-items-center gap-3">
             <input
               type="date"
@@ -88,13 +154,56 @@ const Booking = ({ room, avgRating }) => {
               required
               onChange={handleChange}
             />
-            {/* <input
-              type="number"
-              placeholder="Guest"
-              id="guestSize"
+            
+          </FormGroup>
+        </Form> */}
+        <Form className="booking__info-form" onSubmit={handleClick}>
+          <FormGroup className="d-flex align-items-center gap-3">
+            <input
+              type="date"
+              placeholder=""
+              min={today}
+              id="bookAt"
+              onChange={(e) => {
+                setBookAt(e.target.value);
+                handleChangeTime();
+              }}
               required
-              onChange={handleChange}
-            /> */}
+            />
+          </FormGroup>
+          <FormGroup>
+            {showTimeInputs && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
+                }}
+              >
+                <div>
+                  <h5>Time Start:</h5>
+                  <input
+                    type="time"
+                    onChange={(e) => setTimeStart(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <h5>Time End:</h5>
+                  <input
+                    type="time"
+                    onChange={(e) => setTimeEnd(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+            )}
+
+            <br />
+            <p>
+              * If the number of people booking exceeds {room.capacity} people,
+              the receptionist will charge an additional fee
+            </p>
           </FormGroup>
         </Form>
       </div>
@@ -119,7 +228,7 @@ const Booking = ({ room, avgRating }) => {
           </ListGroupItem>
         </ListGroup>
         <Button className="btn primary__btn w-100 mt-4" onClick={handleClick}>
-            Booking Now
+          Booking Now
         </Button>
       </div>
     </div>

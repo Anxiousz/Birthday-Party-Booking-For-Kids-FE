@@ -1,5 +1,15 @@
+@keyframes color-change {
+    0% { background: red; }
+    14% { background: orange; }
+    28% { background: yellow; }
+    42% { background: green; }
+    57% { background: blue; }
+    71% { background: indigo; }
+    85% { background: violet; }
+    100% { background: red; }
+  }
+
 .form-container{
-    
     margin-bottom: 10%;
     padding: 3%;
     border: 1px #000;
@@ -8,3 +18,5 @@
     box-shadow: 0 0 5px #000;
 
 }
+
+  

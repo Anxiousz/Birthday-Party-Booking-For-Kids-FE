@@ -64,7 +64,11 @@ const BookingHistory = () => {
           <Col key={booking.bookingId} sm="12" md="6" lg="4" xl="3"></Col>
         ))}
       </Row>
-      <Table className="table-form">
+      <Table className="table-form"
+      style={{}}>
+        
+
+    
         <thead>
           <tr>
             <th>No.</th>
@@ -74,6 +78,7 @@ const BookingHistory = () => {
             <th>Status</th>
           </tr>
         </thead>
+        
         <tbody>
           {bookingData.map((booking, index) => (
             <React.Fragment key={booking.bookingId}>
@@ -84,10 +89,11 @@ const BookingHistory = () => {
                 md="6"
                 lg="4"
                 xl="3"
+                style={{ }}
               >
                 <td style={{ verticalAlign: "middle" }}>{index + 1}</td>
                 <td>
-                  <Button color="link" onClick={toggle2}>
+                  <Button color="black" onClick={toggle2}>
                     {booking.room.roomName}
                   </Button>
                 </td>

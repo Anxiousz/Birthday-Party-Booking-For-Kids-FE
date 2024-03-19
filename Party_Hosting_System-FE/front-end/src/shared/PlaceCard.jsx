@@ -78,13 +78,13 @@ const TourCard = ({ room }) => {
           <h5 className="tour__title">
             <span className="tour__location d-flex align-items-center gap-1">
               <i class="ri-time-line"></i>
-              Time Start: {formatTime(timeStart)}
+              Time Start: 8 AM
             </span>
           </h5>
           <h5 className="tour__title">
             <span className="tour__location d-flex align-items-center gap-1">
               <i class="ri-time-line"></i>
-              Time End: {formatTime(timeEnd)}
+              Time End: 10 PM
             </span>
           </h5>
           <div className="card__bottom d-flex align-items-center justify-content-between mt-3">

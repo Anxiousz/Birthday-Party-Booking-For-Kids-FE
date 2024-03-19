@@ -20,17 +20,17 @@ const nav__links = [
     display: "Home",
   },
   {
-    path: "/about",
-    display: "About",
-  },
-  {
-    path: "/menufood",
-    display: "Menu Food",
+    path: "/allroom",
+    display: "Room",
   },
   {
     path: "/post",
     display: "Post",
   },
+  {
+    path: "/about",
+    display: "About",
+  },  
 ];
 
 const Header = (props) => {

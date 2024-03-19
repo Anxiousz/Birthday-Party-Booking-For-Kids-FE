@@ -1,49 +1,55 @@
 import React, { useRef, useState } from "react";
 import "./search-bar.css";
-import { Col, Form, FormGroup } from "reactstrap";
+import { Col, Form, FormGroup, Row } from "reactstrap";
 import axios from "axios";
+import { FeatureTourList } from "../components/Featured-places/FeaturePlaceList";
+import RoomCard from "../shared/PlaceCard";
 export const SearchBar = () => {
   // const locationRef = useRef("");
   const distanceRef = useRef("");
   const maxGroupSizeRef = useRef("");
-  const [location,setLocation ] = useState("");
+  const [location, setLocation] = useState("");
   const onChangelocation = (e) => {
     setLocation(e.target.value);
-    console.log(location)
   };
+  const [roomData, setRoomData] = useState([]);
   const search = async () => {
     if (location === "") {
-      return alert("All field are required");
+      return alert("Cannot search emrty");
     }
     try {
-      const urlSearch = `https://partyhostingsystems.azurewebsites.net/SearchRoom/roomName?context=${location}`;
+      const urlSearch = `https://partyhostingsystems.azurewebsites.net/api/v2/Room/SearchRoom/roomName?context=${location}`;
       await axios.post(urlSearch).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
+        setRoomData(res.data);
       });
     } catch (error) {
+      console.log(location);
       console.error("Error:", error);
     }
   };
 
   return (
-    <Col lg="12">
-      <div className="search__bar">
-        <Form className="d-flex align-items-center gap-4">
-          <FormGroup className="d-flex gap-3 form__group form__group-fast">
-            <span>
-              <i class="ri-map-pin-line"></i>
-            </span>
-            <div>
-              <h6>Location</h6>
-              <input
-                type="text"
-                placeholder="Search Room Here"
-                onChange={onChangelocation}
-                // ref={locationRef}
-              />
-            </div>
-          </FormGroup>
-          {/* <FormGroup className="d-flex gap-3 form__group form__group-fast">
+    <div>
+      <Row>
+        <Col lg="12">
+          <div className="search__bar">
+            <Form className="d-flex align-items-center gap-4">
+              <FormGroup className="d-flex gap-3 form__group form__group-fast">
+                <span>
+                  <i class="ri-map-pin-line"></i>
+                </span>
+                <div>
+                  <h6>Location</h6>
+                  <input
+                    type="text"
+                    placeholder="Search Room Here"
+                    onChange={onChangelocation}
+                    // ref={locationRef}
+                  />
+                </div>
+              </FormGroup>
+              {/* <FormGroup className="d-flex gap-3 form__group form__group-fast">
             <span>
               <i class="ri-map-pin-time-line"></i>
             </span>
@@ -56,11 +62,21 @@ export const SearchBar = () => {
               />
             </div>
           </FormGroup> */}
-          <span className="search__icon" type="submit" onClick={search}>
-            <i class="ri-search-line"></i>
-          </span>
-        </Form>
-      </div>
-    </Col>
+              <span className="search__icon" type="submit" onClick={search}>
+                <i class="ri-search-line"></i>
+              </span>
+            </Form>
+          </div>
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        {roomData.slice(0, 4).map((room) => (
+          <Col lg="3" className="mb-4" key={room.id}>
+            <RoomCard room={room} />
+          </Col>
+        ))}
+      </Row>
+    </div>
   );
 };

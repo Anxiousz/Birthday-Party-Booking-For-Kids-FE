@@ -66,8 +66,8 @@ const TourDetails = () => {
                   <div className="tour__extra-details">
                     <span className="time-details">
                       <i class="ri-map-pin-2-line"></i>
-                      <strong>Time Start:</strong>{" "}
-                      {formatTime(roomData.timeStart)}
+                      <strong>Time Start: 8 AM</strong>{" "}
+                      
                     </span>
                     <span>
                       {" "}
@@ -82,7 +82,7 @@ const TourDetails = () => {
                   <div className="tour__extra-details">
                     <span className="time-details">
                       <i class="ri-map-pin-2-line"></i>
-                      <strong>Time End:</strong> {formatTime(roomData.timeEnd)}
+                      <strong>Time End: 10 PM</strong> 
                     </span>
                   </div>
                   <h5>Description</h5>

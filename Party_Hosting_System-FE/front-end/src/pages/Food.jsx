@@ -164,7 +164,8 @@ export default function Food() {
                           id="quantity"
                           value={paymentData.quantity}
                           onChange={handleChange}
-                          min="1"
+                          min={"1"}
+                          max={100}
                           required
                         />
                         </div>

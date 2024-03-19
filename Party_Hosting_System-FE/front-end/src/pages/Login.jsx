@@ -10,29 +10,32 @@ import {
   Toast,
   ToastHeader,
   ToastBody,
+  Modal,
 } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/login.css";
+
 import Select from "react-select";
 import loginImg from "../assets/images/login.png";
 import userIcon from "../assets/images/user.png";
 import axios from "axios";
 
 const Login = () => {
+  const [editModal, setEditModal] = useState(false);
   const [credentials, setCredentials] = useState({
     email: undefined,
     password: undefined,
   });
   const option = [
     { value: "RegisteredUser", label: "User" },
-    { value: "PartyHost", label: "Host" },
+    // { value: "PartyHost", label: "Host" },
     // { value: "Staff", label: "Staff" },
     // { value: "Admin", label: "Admin" },
   ];
   const [selectedOption, setSelectedOption] = useState(option[0]);
   const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
-
+  const toggle = () => setEditModal(!editModal);
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
@@ -56,7 +59,7 @@ const Login = () => {
         setShowAlert(true);
         setTimeout(() => {
           navigate("/home");
-        }, 500);
+        }, 1500);
         // console.log(res.data)
       })
       .catch((err) => {
@@ -66,14 +69,7 @@ const Login = () => {
         }
       });
   };
-  // <Alert className="alert_login">
-  //   <h4 className="alert-heading">Login successfully</h4>
-  //   <p>
-  //     Welcome to Party Hosting System. You have successfully logged in.
-  //     Please enjoy your time here.
-  //   </p>
-  //   <hr />
-  // </Alert>
+
   return (
     <section>
       {showAlert && (
@@ -119,14 +115,7 @@ const Login = () => {
                       onChange={handleChange}
                     />
                   </FormGroup>
-                  <Select
-                    className="option"
-                    options={option}
-                    onChange={setSelectedOption}
-                    defaultValue={option[0]}
-                    
-                    /* cái này là bảng dropdown để chọn roll*/
-                  ></Select>
+                  
                   <Button
                     className="btn secondary__btn auth__btn"
                     type="submit"

@@ -6,29 +6,35 @@ import {
   Form,
   FormGroup,
   Button,
+  Modal,
   ButtonGroup,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
 } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/login.css";
-import Password_Vali from "./PasswordValidation";
 import { Input, Label } from "reactstrap";
 import registerImg from "../assets/images/register.png";
 import userIcon from "../assets/images/user.png";
 import axios from "axios";
-import sendErrorcode from "../shared/error-code";
+// import sendErrorcode from "../shared/error-code";
 
 const Register = () => {
   // Define the state
   const [rSelected, setRSelected] = useState(1);
-  const [credentials, setCredentials] = useState({
-    userName: undefined,
-    email: undefined,
-    password: undefined,
-  });
+  // const [credentials, setCredentials] = useState({
+  //   userName: undefined,
+  //   email: undefined,
+  //   password: undefined,
+  // });
+  const toggle = () => setEditModal(!editModal);
+  const [editModal, setEditModal] = useState(false);
   const [valid, setValid] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [data, setData] = useState({
-    staffId: "5",
-    packageId: "1",
+    // staffId: "5",
+    // packageId: "1",
     userName: undefined,
     email: undefined,
     password: undefined,
@@ -38,66 +44,120 @@ const Register = () => {
     gender: undefined,
   });
   const handleChange = (e) => {
-    const {  id, name, value  } = e.target;
-    
-    if (name === 'password') {
-      const passwordValidation = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-      if (!value.match(passwordValidation)) {
-        alert('Password must contain at least 8 characters, 1 lowercase letter, 1 uppercase letter, and 1 number');
-        return;
-      }
-    }
+    const { id, name, value } = e.target;
+
+    // if (name === 'password') {
+    //   const passwordValidation = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    //   if (!value.match(passwordValidation)) {
+    //     alert('Password must contain at least 8 characters, 1 lowercase letter, 1 uppercase letter, and 1 number');
+    //     return;
+    //   }
+    // }
     setData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
     console.log(data);
   };
   //From đăng kí  account
   const navigate = useNavigate();
-  const changePostUrl = (rSelected) => {
-    if (rSelected === 1) {
-      setData((prev) => ({ ...prev, staffId: "5" }));
-      setData((prev) => ({ ...prev, packageId: "1" }));
-    } else {
-      setData((prev) => ({ ...prev, staffId: "6" }));
-      setData((prev) => ({ ...prev, packageId: "2" }));
-    }
-  };
   const url =
     rSelected === 1
       ? "https://partyhostingsystems.azurewebsites.net/api/v1/Register/RegisteredUser"
       : "https://partyhostingsystems.azurewebsites.net/api/v1/Register/PartyHost";
   // Hàm xử lý submit form
-  const handleSubmit = (e) => {
-    e.preventDefault();
 
-    postData(data);
+  const validateInput = (userName, email, password, phone, address) => {
+    // Check if the first letter of each word in the username is uppercase
+    const usernameRegex = /^[A-Z][a-z]*(?: [A-Z][a-z]*)*$/;
+    if (!usernameRegex.test(userName)) {
+      alert("Username must start with a capital letter for each word.");
+      return false;
+    }
+
+    // Check if the email contains @
+    if (!email.includes("@")) {
+      alert("Email must contain @.");
+      return false;
+    }
+
+    // Check if the password is at least 8 characters long, starts with an uppercase letter, and contains a special character
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$&*]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      alert(
+        "Password must be at least 8 characters long, start with an uppercase letter, and contain a special character."
+      );
+      return false;
+    }
+
+    // Check if the phone number is 10 or 11 digits long
+    const phoneRegex = /^\d{10,11}$/;
+    if (!phoneRegex.test(phone)) {
+      alert("Phone number must be 10 or 11 digits long.");
+      return false;
+    }
+    if (!address) {
+      alert("Address cannot be null.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = (e) => {
+    if (e && typeof e.preventDefault === "function") {
+      e.preventDefault();
+    }
+    const isValid = validateInput(
+      data.userName,
+      data.email,
+      data.password,
+      data.phone,
+      data.address
+    );
+    if (!isValid) {
+      return;
+    }
+    // data.preventDefault();
+    registerAcc(data);
+    // navigate("/login");
+    // console.log(e);
   };
 
   //đang thử nghiệm form đăng kí thu thập thông tin
-  // Define the function
-  const postData = (data) => {
-    axios
-      .post(url, data)
-      .then((res) => {
-        console.log(data);
-        console.log(res);
-        navigate("/login");
-      })
-      .catch((err) => {
-        console.log(err.response.status);
-        console.log(err.response.data);
-        const status = err.response.status;
-        const message = err.response.data;
-        sendErrorcode(status, message);
-      });
 
-    // Hàm xử lý thay đổi giá trị input
+  const registerAcc = async (data) => {
+    setIsSubmitting(true);
+    try {
+      const response = await axios.post(url, data);
+      if (response.status === 200) {
+        console.log(response);
+        toggle();
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+        // navigate("/login");
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   return (
     <Container>
+      <Modal
+        isOpen={editModal}
+        toggle={toggle}
+        // className={className}
+        // backdrop={backdrop}
+      >
+        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+        <ModalBody>
+          <h3>Your registration was successful! Please login your account.</h3>
+        </ModalBody>
+      </Modal>
       <Row>
         <Col /*form đăng kí */>
           <div className="form-container">
-            <form className="register-form">
+            <form className="register-form" onSubmit={handleSubmit}>
               {/* { valid && (
                 <div className="success-message">
                   <h3> Welcome {data.fullName} </h3>
@@ -116,42 +176,38 @@ const Register = () => {
               <Col xs="auto">
                 <h5>User name</h5>
               </Col>
-              {!valid && (
-                <input
-                  class="form-field"
-                  type="text"
-                  placeholder="Username"
-                  id="userName"
-                  name="userName"
-                  onChange={handleChange}
-                />
-              )}
+              <input
+                class="form-field"
+                type="text"
+                placeholder="Username"
+                id="userName"
+                name="userName"
+                onChange={handleChange}
+              />
+
               <Col xs="auto">
                 <h5>Email</h5>
               </Col>
-              {!valid && (
-                <input
-                  class="form-field"
-                  type="email"
-                  placeholder="Email"
-                  id="email"
-                  name="email"
-                  onChange={handleChange}
-                />
-              )}
+
+              <input
+                class="form-field"
+                type="email"
+                placeholder="Email"
+                id="email"
+                name="email"
+                onChange={handleChange}
+              />
               <Col xs="auto">
                 <h5>Password</h5>
               </Col>
-              {!valid && (
-                <input
-                  class="form-field"
-                  type="password"
-                  placeholder="Password"
-                  id="password"
-                  name="password"
-                  onChange={handleChange}
-                />
-              )}
+              <input
+                class="form-field"
+                type="password"
+                placeholder="Password"
+                id="password"
+                name="password"
+                onChange={handleChange}
+              />
               <div>
                 <br />
                 <h5 style={{}}>Choice your role</h5>
@@ -184,16 +240,14 @@ const Register = () => {
               <Col xs="auto">
                 <h5>Phone</h5>
               </Col>
-              {!valid && (
-                <input
-                  class="form-field"
-                  type="number"
-                  placeholder="Phone Number"
-                  id="phone"
-                  name="phone"
-                  onChange={handleChange}
-                />
-              )}
+              <input
+                class="form-field"
+                type="number"
+                placeholder="Phone Number"
+                id="phone"
+                name="phone"
+                onChange={handleChange}
+              />
               <br />
               <ButtonGroup className="d-flex flex-column">
                 <Row>
@@ -230,37 +284,37 @@ const Register = () => {
               </ButtonGroup>
               <br />
               <Col xs="auto">
-                    <h5>Birth Day</h5> 
-                  </Col>
-              {!valid && (
-                <input
-                  class="form-field"
-                  type="date"
-                  placeholder="Date of Birth"
-                  id="birthDay"
-                  name="birthDay"
-                  max={new Date(new Date().setDate(new Date().getDate()-1)).toISOString().split('T')[0]}
-                  onChange={handleChange}
-                />
-              )}
+                <h5>Birth Day</h5>
+              </Col>
+              <input
+                class="form-field"
+                type="date"
+                placeholder="Date of Birth"
+                id="birthDay"
+                name="birthDay"
+                max={
+                  new Date(new Date().setDate(new Date().getDate() - 1))
+                    .toISOString()
+                    .split("T")[0]
+                }
+                onChange={handleChange}
+              />
               <Col xs="auto">
-                    <h5>Address</h5> 
-                  </Col>
-              {!valid && (
-                <input
-                  className="form-field"
-                  type="text"
-                  placeholder="Address"
-                  id="address"
-                  name="address"
-                  onChange={handleChange}
-                />
-              )}
+                <h5>Address</h5>
+              </Col>
+              <input
+                className="form-field"
+                type="text"
+                placeholder="Address"
+                id="address"
+                name="address"
+                onChange={handleChange}
+              />
 
               <button
                 className="form-field"
                 type="submit"
-                onClick={() => postData(data)}
+                disabled={isSubmitting}
               >
                 Register
               </button>

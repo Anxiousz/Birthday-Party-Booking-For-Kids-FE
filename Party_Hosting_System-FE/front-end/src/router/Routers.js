@@ -31,7 +31,7 @@ const Routers = () => {
       <Route path="/profile/:id" element={<Profile />} />
       <Route path="/thank-you" element={<ThankYou />} />
       <Route path="/tour/search" element={<SearchResultList />} />
-      <Route path="/login/roll-selection" />
+      {/* <Route path="/login/roll-selection" /> */}
     </Routes>
   );
 };

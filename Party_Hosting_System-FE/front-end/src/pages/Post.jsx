@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Label, Input, FormGroup, Col } from "reactstrap";
 import PostCard from "../shared/PostCard";
 import axios from "axios";
-
+import '../styles/post.css';
 const Post = () => {
   const [postData, setPostdata] = useState({
     context: undefined,
@@ -22,7 +22,7 @@ const Post = () => {
   const fetchPostData = async () => {
     try {
       const response = await fetch(
-        "https://partyhostingsystems.azurewebsites.net/api/v1/Post",
+        "https://partyhostingsystems.azurewebsites.net/api/v1/Post/getAllPost",
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
@@ -32,13 +32,13 @@ const Post = () => {
 
       const data = await response.json();
       setStore(data);
-      console.log(store);
+      console.log(data);
     } catch (error) {
       console.error("Error fetching post data:", error);
     }
   };
   const endpoint = store;
-  const apiUrl = "https://partyhostingsystems.azurewebsites.net/api/v1/Post";
+  const apiUrl = "https://partyhostingsystems.azurewebsites.net/api/v1/Post/getAllPost";
   const createPostData = async (data) => {
     try {
       axios
@@ -56,35 +56,14 @@ const Post = () => {
   };
   return (
     <div>
-      <button onClick={fetchPostData}>Click to check</button>
 
       {store.slice(0, 6).map((store) => (
-        <Col lg="4" className="mb-4" key={store.id}>
-          <PostCard store={store} />
-        </Col>
+        <Col lg="12" className="mb-4 post-card-frame" key={store.id}>
+        <PostCard store={store} />
+      </Col>
       ))}
-      <Form className="post table">
-        <FormGroup>
-          <Label for="title">Title</Label>
-          <Input
-            type="text"
-            name="title"
-            id="title"
-            placeholder="Title"
-            onChange={handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="context">Context</Label>
-          <Input
-            type="text"
-            name="context"
-            id="context"
-            placeholder="Context"
-            onChange={handleChange}
-          />
-        </FormGroup>
-      </Form>
+      
+      
     </div>
   );
 };

@@ -19,7 +19,14 @@ const Profile = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [modal, setModal] = useState(false);
+  
+ const config = {
+    headers: {
+      Authorization: "Bearer " + authToken,
+    },
+  };
   const url =
     "https://partyhostingsystems.azurewebsites.net/api/v1/RegisteredUser/2";
   useEffect(() => {
@@ -71,10 +78,20 @@ const Profile = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Update user data
-    axios
-      .put("/api/user", user) // Adjust this URL to your API
-      .then(() => navigate("/")) // Redirect to home page
+
+
+     // Update user data
+    const res = axios.put("https://partyhostingsystems.azurewebsites.net/api/v1/RegisteredUser", user, config)  // pass data
+      .then((res) =>      {
+        if (!res.ok) {
+          console.log("sd");
+          setIsSubmitting(true);
+        }
+        console.log(res);
+        navigate(`/profile/${user.accountId}`);
+    
+    
+    }) // Refesh page after updating user data
       .catch((error) => console.error(`Error: ${error}`));
   };
   if (loading) {
