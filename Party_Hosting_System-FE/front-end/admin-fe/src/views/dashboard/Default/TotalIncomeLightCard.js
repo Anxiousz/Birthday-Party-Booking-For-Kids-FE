@@ -96,6 +96,9 @@ const TotalIncomeLightCard = ({ isLoading }) => {
               </Typography>
             </Grid>
           </Box>
+
+
+          
         </CardWrapper>
       )}
     </>

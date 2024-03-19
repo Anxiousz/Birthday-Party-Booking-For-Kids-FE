@@ -12,14 +12,16 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
+  Typography
 } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import CircleIcon from '@mui/icons-material/Circle';
 import SearchIcon from '@mui/icons-material/Search';
 import MainCard from '../../ui-component/cards/MainCard';
-import { getAllRooms, postRoomById } from 'api/room';
+import { getAllRoomsAdmin} from 'api/room';
+import { formatVND } from 'utils/format';
 
 function RoomTable() {
   const [rooms, setRooms] = React.useState([]);
@@ -27,29 +29,12 @@ function RoomTable() {
   const [searchCriteria, setSearchCriteria] = React.useState('roomName'); // Khai báo state mới cho searchCriteria
 
   React.useEffect(() => {
-    getAllRooms().then((data) => {
+    getAllRoomsAdmin().then((data) => {
       if (data) {
         setRooms(data);
       }
     });
   }, []);
-
-  const handleStatusClick = async (roomId) => {
-    try {
-      await postRoomById(roomId);
-     
-      setRooms((prevRooms) =>
-        prevRooms.map((room) => {
-          if (room.roomId === roomId) {
-            return { ...room, status: room.status === 1 ? 0 : 1 };
-          }
-          return room;
-        })
-      );
-    } catch (error) {
-      console.error(`Failed to update status for room with ID ${roomId}:`, error);
-    }
-  };
 
   const filteredRooms = rooms.filter((room) => {
     switch (searchCriteria) {
@@ -75,7 +60,10 @@ function RoomTable() {
     { field: 'roomName', headerName: 'Tên phòng', width: 150 },
     { field: 'roomType', headerName: 'Loại phòng', width: 150 },
     { field: 'location', headerName: 'Vị trí', width: 150 },
-    { field: 'price', headerName: 'Giá tiền', width: 100 },
+    { field: 'price', headerName: 'Giá tiền', width: 100, 
+    renderCell: (params) => (
+      <Typography>{formatVND(params.value)}</Typography>
+    ) },
     {
       field: 'status',
       headerName: 'Trạng thái',
@@ -86,7 +74,7 @@ function RoomTable() {
         <IconButton style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
           <CircleIcon
             style={{ color: params.value === 1 ? 'green' : 'grey', cursor: 'pointer' }}
-            onClick={() => handleStatusClick(params.row.roomId)}
+            // onClick={() => handleStatusClick(params.row.roomId)}
           />
         </IconButton>
       )

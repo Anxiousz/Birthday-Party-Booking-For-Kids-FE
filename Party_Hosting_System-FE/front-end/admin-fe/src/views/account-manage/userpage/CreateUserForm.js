@@ -62,9 +62,11 @@ const CreateUserForm = ({ onSuccess }) => {
             label="Email"
             variant="outlined"
             fullWidth
+            required
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            style={{ margin: '10px 0', zIndex: 2 }}
           />
         </Grid>
         <Grid item xs={12}>
@@ -72,6 +74,7 @@ const CreateUserForm = ({ onSuccess }) => {
             label="Tên Người Dùng"
             variant="outlined"
             fullWidth
+            required
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
           />
@@ -81,6 +84,7 @@ const CreateUserForm = ({ onSuccess }) => {
             label="Mật Khẩu"
             variant="outlined"
             fullWidth
+            required
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -103,6 +107,7 @@ const CreateUserForm = ({ onSuccess }) => {
             label="Ngày Sinh"
             variant="outlined"
             fullWidth
+            required
             type="date"
             InputLabelProps={{ shrink: true }}
             value={birthDay}
@@ -116,9 +121,11 @@ const CreateUserForm = ({ onSuccess }) => {
             label="Số Điện Thoại"
             variant="outlined"
             fullWidth
+            required
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            inputProps={{ maxLength: 9 }}
+            inputProps={{ maxLength: 10 }}
+            type="tel"
           />
         </Grid>
         <Grid item xs={12}>
@@ -127,6 +134,7 @@ const CreateUserForm = ({ onSuccess }) => {
             label="Giới Tính"
             variant="outlined"
             fullWidth
+            required
             value={gender}
             onChange={(e) => setGender(e.target.value)}
           >
@@ -140,6 +148,7 @@ const CreateUserForm = ({ onSuccess }) => {
             label="Địa Chỉ"
             variant="outlined"
             fullWidth
+            required
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />

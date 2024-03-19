@@ -13,7 +13,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper
+  Paper,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
 } from '@mui/material';
 import MainCard from '../../../ui-component/cards/MainCard';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
@@ -32,6 +36,7 @@ function StaffTable() {
   const [managers, setManagers] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [openDialog, setOpenDialog] = useState(false);
+  const [searchCriteria, setSearchCriteria] = useState('');
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
@@ -76,27 +81,26 @@ function StaffTable() {
   };
 
   const filteredStaff = managers.filter((staff) => {
-    return staff.userName.toLowerCase().includes(searchText.toLowerCase()) || staff.email.toLowerCase().includes(searchText.toLowerCase());
+    return staff.phone.includes(searchText); // Thêm điều kiện tìm kiếm bằng số điện thoại
   });
 
   return (
     <MainCard title="Danh sách Staff" contentSX={{ p: 2 }}>
-      <CardContent>
-        <Grid
-          style={{
-            boxSizing: 'border-box',
-            display: 'flex',
-            flexFlow: 'wrap',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            marginTop: '-16px',
-            width: 'calc(100% + 16px)',
-            marginLeft: '-16px',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}
+      {/* <CardContent> */}
+      <FormControl fullWidth>
+        <InputLabel id="search-criteria-label">Tiêu chí tìm kiếm</InputLabel>
+        <Select
+          labelId="search-criteria-label"
+          value={searchCriteria}
+          label="Tiêu chí tìm kiếm"
+          onChange={(e) => setSearchCriteria(e.target.value)}
+          sx={{ width: '300px', marginBottom: '20px', marginRight: '10px' }}
         >
-          <Grid item xs={12} sm={6}>
+          <MenuItem value="phone">Số điện thoại</MenuItem>
+        </Select>
+      </FormControl>
+          <Grid item container spacing={2} alignItems="center" justifyContent="space-between">
+        <Grid item xs={6}>
             <TextField
               variant="outlined"
               size="small"
@@ -112,10 +116,10 @@ function StaffTable() {
                   </InputAdornment>
                 )
               }}
-              sx={{ maxWidth: '600px', marginBottom: '20px' }} // Đã chỉnh sửa từ '500px' thành '600px' để thanh tìm kiếm dài ra
+              // sx={{ maxWidth: '600px', marginBottom: '20px' }} // Đã chỉnh sửa từ '500px' thành '600px' để thanh tìm kiếm dài ra
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item >
             <IconButton
               variant="contained"
               size="small"
@@ -139,10 +143,10 @@ function StaffTable() {
             </IconButton>
           </Grid>
         </Grid>
-      </CardContent>
+      {/* </CardContent> */}
 
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Thêm Staff Mới</DialogTitle>
+        <DialogTitle id="form-dialog-title">Tạo Staff Mới</DialogTitle>
         <DialogContent>
           <CreateStaffForm
             onSuccess={() => {
@@ -175,7 +179,7 @@ function StaffTable() {
               <TableCell>Giới tính</TableCell>
               <TableCell>Địa chỉ</TableCell>
               <TableCell>Trạng thái</TableCell>
-              <TableCell>Hành động</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

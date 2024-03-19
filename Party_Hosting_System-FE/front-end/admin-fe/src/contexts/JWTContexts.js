@@ -81,14 +81,23 @@ function AuthProvider({ children }) {
     initialize();
   }, []);
 
-  const login = async (email, password) => {
+  const login = async (email, password, role) => {
     try {
-      const response = await axios.post(`${API_ROOT}/api/v1/Login/Admin`, {
-        email, // Sử dụng email thay vì name
+      let apiEndpoint;
+      if (role === '1') { // Admin
+        apiEndpoint = '/api/v1/Login/Admin';
+      } else if (role === '3') { // PartyHost
+        apiEndpoint = '/api/v1/Login/PartyHost';
+      } else {
+        throw new Error('Role không hợp lệ.');
+      }
+
+      const response = await axios.post(`${API_ROOT}${apiEndpoint}`, {
+        email, 
         password
       }, {
         headers: {
-          'Content-Type': 'application/json' // Đảm bảo đúng Content-Type
+          'Content-Type': 'application/json' 
         }
       });
       const { token } = response.data;

@@ -1,1 +1,1 @@
-export const API_ROOT = 'https://partyhostingsystem.azurewebsites.net';
+export const API_ROOT = 'https://partyhostingsystems.azurewebsites.net';

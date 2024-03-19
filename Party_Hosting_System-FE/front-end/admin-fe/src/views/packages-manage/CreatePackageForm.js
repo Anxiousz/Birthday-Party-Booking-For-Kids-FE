@@ -5,7 +5,7 @@ import { createPackage } from 'api/packages';
 const CreatePackageForm = ({ onSuccess }) => { 
   const [packageName, setPackageName] = useState('');
   const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState('0');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,6 +41,7 @@ const CreatePackageForm = ({ onSuccess }) => {
             label="Tên Gói"
             variant="outlined"
             fullWidth
+            required
             value={packageName}
             onChange={(e) => setPackageName(e.target.value)}
           />
@@ -50,6 +51,7 @@ const CreatePackageForm = ({ onSuccess }) => {
             label="Mô Tả"
             variant="outlined"
             fullWidth
+            required
             multiline
             rows={4}
             value={description}
@@ -61,9 +63,11 @@ const CreatePackageForm = ({ onSuccess }) => {
             label="Giá"
             variant="outlined"
             fullWidth
+            required
             type="number"
             value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            onChange={(e) => setPrice(Number(e.target.value))}
+            inputProps={{ min: '0' }} 
           />
         </Grid>
         <Grid item xs={12}>

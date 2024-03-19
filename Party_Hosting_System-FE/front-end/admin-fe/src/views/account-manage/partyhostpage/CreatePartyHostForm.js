@@ -5,7 +5,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const CreatePartyHostForm = ({ onSuccess }) => {
-  const [staffId, setStaffId] = useState(''); // Đổi thành staffId
+  const [staffId, setStaffId] = useState('1'); // Đổi thành staffId
   const [email, setEmail] = useState('');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -66,8 +66,12 @@ const CreatePartyHostForm = ({ onSuccess }) => {
             label="StaffID"
             variant="outlined"
             fullWidth
+            required
+            type="number"
             value={staffId}
-            onChange={(e) => setStaffId(e.target.value)}
+            onChange={(e) => setStaffId(Number(e.target.value))}
+            inputProps={{ min: '0' }} // Chỉ cho phép giá trị từ 0 trở lên
+            style={{ margin: '10px 0', zIndex: 2 }}
           />
         </Grid>
         <Grid item xs={12}>
@@ -75,6 +79,7 @@ const CreatePartyHostForm = ({ onSuccess }) => {
             label="Email"
             variant="outlined"
             fullWidth
+            required
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -85,6 +90,7 @@ const CreatePartyHostForm = ({ onSuccess }) => {
             label="Tên PartyHost"
             variant="outlined"
             fullWidth
+            required
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
           />
@@ -94,6 +100,7 @@ const CreatePartyHostForm = ({ onSuccess }) => {
             label="Mật Khẩu"
             variant="outlined"
             fullWidth
+            required
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -116,6 +123,7 @@ const CreatePartyHostForm = ({ onSuccess }) => {
             label="Ngày Sinh"
             variant="outlined"
             fullWidth
+            required
             type="date"
             InputLabelProps={{ shrink: true }}
             value={birthDay}
@@ -129,9 +137,11 @@ const CreatePartyHostForm = ({ onSuccess }) => {
             label="Số Điện Thoại"
             variant="outlined"
             fullWidth
+            required
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            inputProps={{ maxLength: 9 }}
+            inputProps={{ maxLength: 10 }}
+            type="tel"
           />
         </Grid>
         <Grid item xs={12}>
@@ -140,6 +150,7 @@ const CreatePartyHostForm = ({ onSuccess }) => {
             label="Giới Tính"
             variant="outlined"
             fullWidth
+            required
             value={gender}
             onChange={(e) => setGender(e.target.value)}
           >
@@ -153,6 +164,7 @@ const CreatePartyHostForm = ({ onSuccess }) => {
             label="Địa Chỉ"
             variant="outlined"
             fullWidth
+            required
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
@@ -162,8 +174,10 @@ const CreatePartyHostForm = ({ onSuccess }) => {
             label="PackageID"
             variant="outlined"
             fullWidth
+            required
             value={packageId}
-            onChange={(e) => setPackageId(e.target.value)}
+            onChange={(e) => setPackageId(Number(e.target.value))}
+            inputProps={{ min: '0' }} 
           />
         </Grid>
         <Grid item xs={12}>

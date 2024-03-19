@@ -17,9 +17,13 @@ const StaffPage = Loadable(lazy(() => import('views/account-manage/staffpage')))
 const UserPage = Loadable(lazy(() => import('views/account-manage/userpage')));
 const PackagesManagement = Loadable(lazy(() => import('views/packages-manage')));
 const RoomManagement = Loadable(lazy(() => import('views/room-manage')));
+const MenuManageAD = Loadable(lazy(() => import('views/menu-manage-AD')));
+const PostManageAD = Loadable(lazy(() => import('views/post-manage-AD')));
+const FeedbackManage = Loadable(lazy(() => import('views/feedback-manage')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
+// Fixed the missing closing bracket in the MainRoutes object
 const MainRoutes = {
   path: '/',
   element: <MainLayout />,
@@ -61,8 +65,20 @@ const MainRoutes = {
     {
       path: 'room-manage',
       element: <RoomManagement />
+    },
+    {
+      path: 'menu-manage-AD',
+      element: <MenuManageAD />
+    },
+    {
+      path: 'post-manage-AD',
+      element: <PostManageAD />
+    },
+    {
+      path: 'feedback-manage',
+      element: <FeedbackManage />
     }
   ]
-};
+}
 
 export default MainRoutes;

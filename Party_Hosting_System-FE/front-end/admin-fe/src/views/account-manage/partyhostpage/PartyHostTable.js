@@ -12,7 +12,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper
+  Paper,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select
 } from '@mui/material';
 import MainCard from '../../../ui-component/cards/MainCard';
 import SearchIcon from '@mui/icons-material/Search';
@@ -27,6 +31,7 @@ function PartyHostTable() {
   const [partyHosts, setPartyHosts] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [openDialog, setOpenDialog] = useState(false);
+  const [searchCriteria, setSearchCriteria] = useState('');
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
@@ -43,6 +48,11 @@ function PartyHostTable() {
     }
   };
 
+  const reloadPartyHostAndClearSelection = async () => {
+    await reloadPartyHosts();
+    // Add any additional logic to clear selections here if necessary
+  };
+
   useEffect(() => {
     reloadPartyHosts();
   }, []);
@@ -52,7 +62,7 @@ function PartyHostTable() {
       try {
         await deletePartyHostById(partyHostId);
         setSnackbar({ open: true, message: 'Xóa chủ tiệc thành công!', severity: 'success' });
-        reloadPartyHosts();
+        reloadPartyHostAndClearSelection();
       } catch (error) {
         console.error('Lỗi khi xóa chủ tiệc:', error);
         setSnackbar({ open: true, message: 'Có lỗi xảy ra khi xóa chủ tiệc.', severity: 'error' });
@@ -61,79 +71,76 @@ function PartyHostTable() {
   };
 
   const filteredPartyHosts = partyHosts.filter((host) => {
-    return host.userName.toLowerCase().includes(searchText.toLowerCase()) || host.email.toLowerCase().includes(searchText.toLowerCase());
+    return host.phone.toLowerCase().includes(searchText.toLowerCase());
   });
 
   return (
     <MainCard title="Danh sách PartyHost" contentSX={{ p: 2 }}>
-      <CardContent>
-        <Grid
-          style={{
-            boxSizing: 'border-box',
-            display: 'flex',
-            flexFlow: 'wrap',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            marginTop: '-16px',
-            width: 'calc(100% + 16px)',
-            marginLeft: '-16px',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}
+      <FormControl fullWidth>
+        <InputLabel id="search-criteria-label">Tiêu chí tìm kiếm</InputLabel>
+        <Select
+          labelId="search-criteria-label"
+          value={searchCriteria}
+          label="Tiêu chí tìm kiếm"
+          onChange={(e) => setSearchCriteria(e.target.value)}
+          sx={{ width: '300px', marginBottom: '20px', marginRight: '10px' }}
         >
-          <Grid item xs={12} sm={6}>
-            <TextField
-              variant="outlined"
-              size="small"
-              fullWidth
-              margin="normal"
-              placeholder="Tìm kiếm PartyHost"
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                )
-              }}
-              sx={{ maxWidth: '600px', marginBottom: '20px' }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <IconButton
-              variant="contained"
-              size="small"
-              title="Thêm PartyHost"
-              aria-label="Add PartyHost"
-              style={{
-                borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                minWidth: 'auto',
-                boxShadow: 'none',
-                backgroundColor: '#1976d2',
-                color: '#fff',
-                '&:hover': {
-                  backgroundColor: '#1565c0'
-                }
-              }}
-              onClick={() => setOpenDialog(true)}
-            >
-              <AddIcon />
-            </IconButton>
-          </Grid>
+          <MenuItem value="phone">Số điện thoại</MenuItem>
+        </Select>
+      </FormControl>
+      <Grid item container spacing={2} alignItems="center" justifyContent="space-between">
+        <Grid item xs={6}>
+          <TextField
+            variant="outlined"
+            size="small"
+            fullWidth
+            margin="normal"
+            placeholder="Tìm kiếm PartyHost"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              )
+            }}
+            // sx={{ maxWidth: '600px', marginBottom: '20px' }}
+          />
         </Grid>
-      </CardContent>
+        <Grid item>
+          <IconButton
+            variant="contained"
+            size="small"
+            title="Tạo PartyHost"
+            aria-label="Add PartyHost"
+            style={{
+              borderRadius: '50%',
+              width: '40px',
+              height: '40px',
+              minWidth: 'auto',
+              boxShadow: 'none',
+              backgroundColor: '#1976d2',
+              color: '#fff',
+              '&:hover': {
+                backgroundColor: '#1565c0'
+              }
+            }}
+            onClick={() => setOpenDialog(true)}
+          >
+            <AddIcon />
+          </IconButton>
+        </Grid>
+      </Grid>
 
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Thêm PartyHost Mới</DialogTitle>
+        <DialogTitle id="form-dialog-title">Tạo PartyHost Mới</DialogTitle>
         <DialogContent>
           <CreatePartyHostForm
             onSuccess={() => {
               setOpenDialog(false);
               setSnackbar({ open: true, message: 'Tạo PartyHost mới thành công', severity: 'success' });
-              reloadPartyHosts(); // Cần định nghĩa hàm này để tải lại danh sách
+              reloadPartyHostAndClearSelection(); // Cần định nghĩa hàm này để tải lại danh sách
             }}
           />
         </DialogContent>
@@ -162,7 +169,7 @@ function PartyHostTable() {
               <TableCell>Gói Dịch Vụ</TableCell>
               <TableCell>Vai trò</TableCell>
               <TableCell>Trạng thái</TableCell>
-              <TableCell>Hành động</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -173,7 +180,9 @@ function PartyHostTable() {
                 </TableCell>
                 <TableCell>{row.staffId}</TableCell>
                 <TableCell>{row.email}</TableCell>
-                <TableCell sx={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.userName}</TableCell>
+                <TableCell sx={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {row.userName}
+                </TableCell>
                 <TableCell>{row.password}</TableCell>
                 <TableCell>{new Date(row.birthDay).toLocaleDateString()}</TableCell>
                 <TableCell style={{ maxWidth: '100px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>

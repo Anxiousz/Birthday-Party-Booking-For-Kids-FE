@@ -2,25 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, Grid } from '@mui/material';
 import { editPackage } from 'api/packages'; // Đảm bảo bạn đã tạo hàm này trong api/packages
 
-const EditPackageForm = ({ packageInfo, onSuccess }) => {
+const EditPackageForm = ({ packagesInfo, onSuccess }) => {
   const [packageName, setPackageName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
 
   useEffect(() => {
     // Khởi tạo form với thông tin package hiện tại
-    if (packageInfo) {
-      setPackageName(packageInfo.packageName);
-      setDescription(packageInfo.description);
-      setPrice(packageInfo.price);
+    if (packagesInfo) {
+      setPackageName(packagesInfo.packageName);
+      setDescription(packagesInfo.description);
+      setPrice(packagesInfo.price);
     }
-  }, [packageInfo]);
+  }, [packagesInfo]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const packageData = {
-      packageId: packageInfo.packageId,
+      packageId: packagesInfo.packageId,
       packageName,
       description,
       price: Number(price),

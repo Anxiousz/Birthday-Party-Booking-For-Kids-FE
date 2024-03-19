@@ -6,7 +6,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const CreateStaffForm = ({ onSuccess }) => {
   const [id, setId] = useState(''); // Thêm trạng thái cho ID
-  const [superiorId, setSuperiorId] = useState(0);
+  const [superiorId, setSuperiorId] = useState(1);
   const [email, setEmail] = useState('');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +16,7 @@ const CreateStaffForm = ({ onSuccess }) => {
   const [gender, setGender] = useState('');
   const [address, setAddress] = useState('');
   const [isBirthDayInvalid, setIsBirthDayInvalid] = useState(false); // Khai báo trạng thái mới
-
+  
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -60,38 +60,31 @@ const CreateStaffForm = ({ onSuccess }) => {
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
-        {/* <Grid item xs={12}>
-          <TextField
-            label="ID"
-            variant="outlined"
-            fullWidth
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-            style={{ margin: '10px 0', zIndex: 2 }}
-          />
-        </Grid> */}
         <Grid item xs={12}>
           <TextField
             label="AdminID"
             variant="outlined"
             fullWidth
+            required
             type="number"
             value={superiorId}
             onChange={(e) => setSuperiorId(Number(e.target.value))}
-            style={{ margin: '10px 0', zIndex: 2 }} // Sửa ở đây
+            inputProps={{ min: '0' }} // Chỉ cho phép giá trị từ 0 trở lên
+            style={{ margin: '10px 0', zIndex: 2 }}
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Email" variant="outlined" fullWidth type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <TextField label="Email" variant="outlined" fullWidth required type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Tên Staff" variant="outlined" fullWidth value={userName} onChange={(e) => setUserName(e.target.value)} />
+          <TextField label="Tên Staff" variant="outlined" fullWidth required value={userName} onChange={(e) => setUserName(e.target.value)} />
         </Grid>
         <Grid item xs={12}>
           <TextField
             label="Mật Khẩu"
             variant="outlined"
             fullWidth
+            required
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -111,6 +104,7 @@ const CreateStaffForm = ({ onSuccess }) => {
             label="Ngày Sinh"
             variant="outlined"
             fullWidth
+            required
             type="date"
             InputLabelProps={{ shrink: true }}
             value={birthDay}
@@ -120,17 +114,26 @@ const CreateStaffForm = ({ onSuccess }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Số Điện Thoại" variant="outlined" fullWidth value={phone} onChange={(e) => setPhone(e.target.value)} />
+          <TextField
+            label="Số Điện Thoại"
+            variant="outlined"
+            fullWidth
+            required
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            inputProps={{ maxLength: 10 }}
+            type="tel"
+          />
         </Grid>
         <Grid item xs={12}>
-          <TextField select label="Giới Tính" variant="outlined" fullWidth value={gender} onChange={(e) => setGender(e.target.value)}>
+          <TextField select label="Giới Tính" variant="outlined" fullWidth required value={gender} onChange={(e) => setGender(e.target.value)}>
             <MenuItem value="male">Nam</MenuItem>
             <MenuItem value="female">Nữ</MenuItem>
             <MenuItem value="other">Khác</MenuItem>
           </TextField>
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Địa Chỉ" variant="outlined" fullWidth value={address} onChange={(e) => setAddress(e.target.value)} />
+          <TextField label="Địa Chỉ" variant="outlined" fullWidth required value={address} onChange={(e) => setAddress(e.target.value)} />
         </Grid>
         <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary">

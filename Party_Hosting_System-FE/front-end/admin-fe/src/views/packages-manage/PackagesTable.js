@@ -53,7 +53,6 @@ function PackageTable() {
     { field: 'price', headerName: 'Giá', width: 130 },
     {
       field: 'action',
-      headerName: 'Hành động',
       width: 130,
       renderCell: (params) => (
         <>
@@ -112,12 +111,15 @@ function PackageTable() {
   };
 
   const filteredPackages = packages.filter((pkg) => {
-    return (
-      pkg.packageName.toLowerCase().includes(searchText.toLowerCase()) || pkg.description.toLowerCase().includes(searchText.toLowerCase())
-    );
+      switch (searchCriteria) {
+        case 'packageName':
+          return pkg.packageName.toLowerCase().includes(searchText.toLowerCase());
+        case 'price':
+          return pkg.price.toString().toLowerCase().includes(searchText.toLowerCase());
+        default:
+          return true;
+      }
   });
-
-  const [selectionModel, setSelectionModel] = useState([]);
 
   return (
     <MainCard title="Danh sách Packages" contentSX={{ p: 2 }}>
@@ -139,8 +141,7 @@ function PackageTable() {
         </Grid>
         <Grid item container spacing={2} alignItems="center" justifyContent="space-between">
           <Grid item xs={6}>
-            {' '}
-            {/* Thay đổi xs thành xs={6} để làm cho thanh tìm kiếm nhỏ lại */}
+            {' '} {/* Thay đổi xs thành xs={6} để làm cho thanh tìm kiếm nhỏ lại */}
             <TextField
               variant="outlined"
               size="small"
@@ -184,7 +185,7 @@ function PackageTable() {
       </Grid>
       {/* Dialog thêm package mới */}
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-        <DialogTitle>Thêm Package Mới</DialogTitle>
+        <DialogTitle>Tạo Package Mới</DialogTitle>
         <DialogContent>
           <CreatePackageForm
             onSuccess={() => {
@@ -200,7 +201,7 @@ function PackageTable() {
         <DialogContent>
           {currentPackage && (
             <EditPackageForm
-              packageInfo={currentPackage}
+              packagesInfo={currentPackage}
               onSuccess={() => {
                 handleCloseEditDialog();
                 reloadPackagesAndClearSelection();

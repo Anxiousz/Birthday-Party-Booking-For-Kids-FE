@@ -12,6 +12,8 @@ import {
   OutlinedInput,
   Typography,
   useMediaQuery,
+  Select,
+  MenuItem,
   Snackbar
 } from '@mui/material';
 import * as Yup from 'yup';
@@ -26,6 +28,11 @@ const FirebaseLogin = ({ ...others }) => {
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   const [showPassword, setShowPassword] = useState(false);
   const [notification, setNotification] = useState(null); // State for notification message
+  const [role, setRole] = useState('');
+
+  const handleChangeRole = (event) => {
+    setRole(event.target.value);
+  };
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -37,12 +44,7 @@ const FirebaseLogin = ({ ...others }) => {
 
   const LoginSchema = Yup.object().shape({
     name: Yup.string().required('Tên tài khoản không được để trống'),
-    // password: Yup.string()
-    //   .required('Mật khẩu không được để trống')
-    //   .matches(
-    //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-    //     'Mật khẩu phải chứa ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt.'
-    //   )
+
     password: Yup.string().max(255).required('Mật khẩu không được để trống')
   });
 
@@ -50,13 +52,13 @@ const FirebaseLogin = ({ ...others }) => {
     <>
       <Formik
         initialValues={{
-          name: 'admin@gmail.com',
-          password: 'pqwj2@'
+          name: 'oliviadavis@gmail.com',
+          password: 'ProtectedPass321'
         }}
         validationSchema={LoginSchema}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-            await login(values.name, values.password); // Calling the login function from the authentication context
+            await login(values.name, values.password, role); // Modified to include role in the login function call
             setStatus({ success: true });
             setSubmitting(false);
           } catch (err) {
@@ -123,6 +125,23 @@ const FirebaseLogin = ({ ...others }) => {
                 <FormHelperText error>{notification}</FormHelperText>
               </Box>
             )}
+
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel id="demo-simple-select-standard-label">Role</InputLabel>
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                value={role}
+                onChange={handleChangeRole}
+                label="Role"
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value="1">Admin</MenuItem>
+                <MenuItem value="3">Host</MenuItem>
+              </Select>
+            </FormControl>
 
             <Box sx={{ mt: 2 }}>
               <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="secondary">
