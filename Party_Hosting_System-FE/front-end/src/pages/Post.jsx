@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Form, Label, Input, FormGroup, Col } from "reactstrap";
+import { Form, Label, Input, FormGroup, Col, Row } from "reactstrap";
 import PostCard from "../shared/PostCard";
 import axios from "axios";
-import '../styles/post.css';
+import "../styles/post.css";
 const Post = () => {
   const [postData, setPostdata] = useState({
     context: undefined,
@@ -38,7 +38,8 @@ const Post = () => {
     }
   };
   const endpoint = store;
-  const apiUrl = "https://partyhostingsystems.azurewebsites.net/api/v1/Post/getAllPost";
+  const apiUrl =
+    "https://partyhostingsystems.azurewebsites.net/api/v1/Post/getAllPost";
   const createPostData = async (data) => {
     try {
       axios
@@ -46,8 +47,7 @@ const Post = () => {
         .then((res) => {
           sessionStorage.setItem("authToken", res.data.token);
           console.log(res.data.token);
-          setTimeout(() => {
-          }, 2500);
+          setTimeout(() => {}, 2500);
         })
         .catch((err) => {
           console.log(err);
@@ -55,14 +55,14 @@ const Post = () => {
     } catch (err) {}
   };
   return (
-    <div>
-
+    <div className="container">
+      <Row className="row-display">
       {store.slice(0, 6).map((store) => (
-        <Col lg="12" className="mb-4 post-card-frame" key={store.id}>
-        <PostCard store={store} />
-      </Col>
+        <Col lg="6" className="mb-6 post-card-frame" key={store.id}>
+          <PostCard store={store} />
+        </Col>
       ))}
-      
+      </Row>
       
     </div>
   );

@@ -14,7 +14,7 @@ import {
   FormFeedback,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-
+import './post-card.css';
 const PostCard = ({ store }) => {
   const { postId, title, context, image, status } = store;
   const [modal, setModal] = useState(false);
@@ -123,6 +123,10 @@ const PostCard = ({ store }) => {
           >
             View details
           </Button>{" "}
+
+          </CardBody>
+      </Card>
+
           <Modal
             isOpen={modal}
             toggle={toggleModal}
@@ -132,7 +136,7 @@ const PostCard = ({ store }) => {
             <ModalBody>
               <FormGroup>
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <img src={image} alt="post-img" style={{ width: "80%" }} />
+                  <img src={image} alt="post-img" style={{ width: "40%" }} />
                 </div>{" "}
               </FormGroup>
               <FormGroup>
@@ -144,7 +148,7 @@ const PostCard = ({ store }) => {
               </FormGroup>
               <FormGroup>
                 <h3>Feedback</h3>
-                <div className="tour__card">
+                <div className="tour__card2">
                   <Card>
                     <CardBody>
                       {data.map((feedback) => (
@@ -257,8 +261,8 @@ const PostCard = ({ store }) => {
               </table>
             </div>
           )} */}
-        </CardBody>
-      </Card>
+        {/* </CardBody>
+      </Card> */}
     </div>
   );
 };

@@ -1,0 +1,19 @@
+
+
+.tour__img img {
+  width: 100%;
+  height: auto;
+  max-height: 300px; /* Adjust as needed */
+  object-fit: cover;
+  }
+  
+  .tour__card {
+    width: 400px;
+    margin-bottom: 55px;
+    margin-top: 55px;
+    
+  }
+  .CardBody {
+    max-height: 500px; /* Adjust as needed */
+    overflow-y: auto;
+  }

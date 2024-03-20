@@ -1,5 +1,13 @@
+.container{
+    
+}
+
 .post-card-frame {
-    width: 880px;
-    height: 700px;
-    margin: 0 auto; 
+    height: 600px; 
+    height: 400px;
+    margin-bottom: 100px; /* Adjust as needed */
+
   }
+.row-display {
+    height: 1200px;
+}
