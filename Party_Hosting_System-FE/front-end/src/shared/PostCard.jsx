@@ -14,19 +14,26 @@ import {
   FormFeedback,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import './post-card.css';
+import "./post-card.css";
+import axios from "axios";
 const PostCard = ({ store }) => {
   const { postId, title, context, image, status } = store;
   const [modal, setModal] = useState(false);
   const userId = sessionStorage.getItem("userId");
   const [backdrop] = useState("static");
-  const [unmountOnClose, setUnmountOnClose] = useState(false);
+  const authToken = sessionStorage.getItem("authToken");
+  const [storeId, setStoreId] = useState(null);
   const [feedback, setFeedback] = useState({
     comment: "",
-    rating: "",
-    createdBy: "",
-    postId: "",
+    rating: undefined,
+    createdBy: undefined,
+    postId: undefined,
   });
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
   const [data, setData] = useState([]);
   const toggleModal = () => {
     setModal(!modal);
@@ -47,18 +54,20 @@ const PostCard = ({ store }) => {
     hour12: true,
   };
   const handleChange = (e) => {
-    const { id, name, value } = e.target;
+    let { id, name, value } = e.target;
 
-    setFeedback((prev) => ({ ...prev, [e.target.id]: e.target.value }));
-    setFeedback((prev) => ({ ...prev, createdBy: userId }));
-    setFeedback((prev) => ({ ...prev, postId: postId }));
+      setFeedback((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+      setFeedback((prev) => ({ ...prev, createdBy: parseInt(userId) }));
+      setFeedback((prev) => ({ ...prev, postId: parseInt(postId) }));
+
     console.log(feedback);
   };
+  // const handleAddFeedbackClick = (postId) => {
+  //   window.history.pushState({}, '', `?postId=${postId}`);
+  //   // ...existing code...
+  // };
+  
 
-  const changeUnmountOnClose = (e) => {
-    let { value } = e.target;
-    setUnmountOnClose(JSON.parse(value));
-  };
   const handleLinkClick = () => {
     fetch(`https://partyhostingsystems.azurewebsites.net/api/v1/Post/${postId}`)
       .then((response) => response.json())
@@ -69,7 +78,6 @@ const PostCard = ({ store }) => {
         console.error("Error fetching room details:", error);
       });
   };
-  const [showPopup, setShowPopup] = useState(false);
   const getFeedbackdata = async (postId) => {
     try {
       const response = await fetch(
@@ -83,16 +91,40 @@ const PostCard = ({ store }) => {
       console.error("Error fetching feedback data:", error);
     }
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (feedback.comment === '' || feedback.rating === '') {
-      // Show error
-      setFeedback({ ...feedback, commentError: feedback.comment === '', ratingError: feedback.rating === '' });
-    } else {
-      // Post feedback
-      // ...
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const postIdFromUrl = urlParams.get('postId');
+    if (postIdFromUrl) {
+      toggleModal();
+      getFeedbackdata(postIdFromUrl);
+      console.log('that go sucessfully')
     }
+    console.log('check this if pass this ');
+    setStoreId(undefined);
+  }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('first')
+    // if (feedback.comment === '' || feedback.rating === '') {
+    //   return alert("Comment and rating are required");
+    // } else {
+    await axios
+      .post(
+        "https://partyhostingsystems.azurewebsites.net/api/v1/Feedback/Comment",feedback,config
+      )
+      .then((res) => {
+        console.log(res);
+        if (feedback.comment !== "" && feedback.rating !== undefined) {
+          setStoreId(postId);
+          window.history.pushState({}, '', `?postId=${postId}`);
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log(feedback);
+        console.error("Error fetching feedback data:", error);
+      });
+    // }
   };
 
   // const handleDelete = () => {
@@ -123,105 +155,104 @@ const PostCard = ({ store }) => {
           >
             View details
           </Button>{" "}
-
-          </CardBody>
+        </CardBody>
       </Card>
 
-          <Modal
-            isOpen={modal}
-            toggle={toggleModal}
-            className="custom-modal"
-            style={{ maxWidth: "1200px" }}
-          >
-            <ModalBody>
-              <FormGroup>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <img src={image} alt="post-img" style={{ width: "40%" }} />
-                </div>{" "}
-              </FormGroup>
-              <FormGroup>
-                <h2 id="description" style={{ textAlign: "center" }}>
-                  {title}
-                </h2>
+      <Modal
+        isOpen={modal}
+        toggle={toggleModal}
+        className="custom-modal"
+        style={{ maxWidth: "1200px" }}
+      >
+        <ModalBody>
+          <FormGroup>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <img src={image} alt="post-img" style={{ width: "40%" }} />
+            </div>{" "}
+          </FormGroup>
+          <FormGroup>
+            <h2 id="description" style={{ textAlign: "center" }}>
+              {title}
+            </h2>
 
-                <p id="description">{context}</p>
-              </FormGroup>
-              <FormGroup>
-                <h3>Feedback</h3>
-                <div className="tour__card2">
-                  <Card>
-                    <CardBody>
-                      {data.map((feedback) => (
-                        <FormGroup
-                          key={feedback.feedbackId}
-                          style={{
-                            border: "1px solid rgba(0, 0, 0, 0.5)",
-                            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
-                            borderRadius: "10px",
-                          }}
-                        >
-                          <p style={{ marginTop: "20px", marginLeft: "20px" }}>
-                            {feedback.comment}
-                          </p>
-                          <p style={{ marginTop: "5px", marginLeft: "20px" }}>
-                            Rating: {getStars(feedback.rating)}
-                          </p>
+            <p id="description">{context}</p>
+          </FormGroup>
+          <FormGroup>
+            <h3>Feedback</h3>
+            <div className="tour__card2">
+              <Card>
+                <CardBody>
+                  {data.map((feedback) => (
+                    <FormGroup
+                      key={feedback.feedbackId}
+                      style={{
+                        border: "1px solid rgba(0, 0, 0, 0.5)",
+                        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
+                        borderRadius: "10px",
+                      }}
+                    >
+                      <p style={{ marginTop: "20px", marginLeft: "20px" }}>
+                        {feedback.comment}
+                      </p>
+                      <p style={{ marginTop: "5px", marginLeft: "20px" }}>
+                        Rating: {getStars(feedback.rating)}
+                      </p>
 
-                          {/* <p style={{ marginTop: "5px", marginLeft: "20px" }}>
+                      {/* <p style={{ marginTop: "5px", marginLeft: "20px" }}>
                             Created by: {feedback.createdBy}
                           </p> */}
-                          <p style={{ marginTop: "5px", marginLeft: "20px" }}>
-                            Created by: {feedback.createdByNavigation.userName}
-                          </p>
-                          <p style={{ marginTop: "5px", marginLeft: "20px" }}>
-                            Created at:{" "}
-                            {new Date(feedback.createdAt)
-                              .toLocaleString("en-US", options)
-                              .replace(/,/g, "")
-                              .replace(/ /g, " ")}
-                          </p>
-                        </FormGroup>
-                      ))}
-                      <br />
-                      <FormGroup  onSubmit={handleSubmit}>
-                        <Label for="comment">Comment</Label>
-                        <Input
-                          type="textarea"
-                          name="comment"
-                          id="comment"
-                          onChange={handleChange}
-                          invalid={feedback.commentError}
-                        />
-                        <FormFeedback>Comment is required</FormFeedback>
-                        <br />
-                        <Label for="rating">Rating</Label>
-                        <Input
-                          type="select"
-                          name="rating"
-                          id="rating"
-                          onChange={handleChange}
-                          invalid={feedback.ratingError}
-                        >
-                          <option value="">Select rating</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </Input>
-                        <FormFeedback>Rating is required</FormFeedback>
-                        <br />
-                        <Button color="success" type="submit">
-                          Add Feedback
-                        </Button>{" "}
-                      </FormGroup>
-                    </CardBody>
-                  </Card>
-                </div>
-              </FormGroup>
-            </ModalBody>
-            <ModalFooter>
-              {/* <Button
+                      <p style={{ marginTop: "5px", marginLeft: "20px" }}>
+                        Created by: {feedback.createdByNavigation.userName}
+                      </p>
+                      <p style={{ marginTop: "5px", marginLeft: "20px" }}>
+                        Created at:{" "}
+                        {new Date(feedback.createdAt)
+                          .toLocaleString("en-US", options)
+                          .replace(/,/g, "")
+                          .replace(/ /g, " ")}
+                      </p>
+                    </FormGroup>
+                  ))}
+                  <br />
+                  <FormGroup onSubmit={handleSubmit}>
+                    <Label for="comment">Comment</Label>
+                    <Input
+                      type="textarea"
+                      name="comment"
+                      id="comment"
+                      onChange={handleChange}
+                      invalid={feedback.commentError}
+                    />
+                    <FormFeedback>Comment is required</FormFeedback>
+                    <br />
+                    <Label for="rating">Rating</Label>
+                    <Input
+                      type="select"
+                      name="rating"
+                      id="rating"
+                      onChange={handleChange}
+                      invalid={feedback.ratingError}
+                    >
+                      <option value="">Select rating</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </Input>
+                    <FormFeedback>Rating is required</FormFeedback>
+                    <br />
+                    <Button color="success" type="submit" onClick={handleSubmit}> 
+                      Add Feedback
+                    </Button>{" "}
+                  </FormGroup>
+                </CardBody>
+              </Card>
+            </div>
+          </FormGroup>
+        </ModalBody>
+        <ModalFooter>
+          {/* <Button
                 color="primary"
                 onClick={() => {
                   toggleModal();
@@ -229,12 +260,12 @@ const PostCard = ({ store }) => {
               >
                 Save
               </Button>{" "} */}
-              <Button color="secondary" onClick={toggleModal}>
-                Cancel
-              </Button>
-            </ModalFooter>
-          </Modal>
-          {/* {showPopup && (
+          <Button color="secondary" onClick={toggleModal}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
+      {/* {showPopup && (
             <div className="popup">6667
               <table>
                 <thead>
@@ -261,7 +292,7 @@ const PostCard = ({ store }) => {
               </table>
             </div>
           )} */}
-        {/* </CardBody>
+      {/* </CardBody>
       </Card> */}
     </div>
   );
