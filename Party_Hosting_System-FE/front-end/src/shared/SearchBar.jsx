@@ -7,7 +7,7 @@ import RoomCard from "../shared/PlaceCard";
 export const SearchBar = () => {
   // const locationRef = useRef("");
   const distanceRef = useRef("");
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const maxGroupSizeRef = useRef("");
   const [location, setLocation] = useState("");
   const onChangelocation = (e) => {
@@ -26,7 +26,7 @@ export const SearchBar = () => {
         if (res.data.length === 0) {
           setMessage("Don't find the room match with value");
         } else {
-          setMessage('');
+          setMessage("");
         }
       });
     } catch (error) {
@@ -77,18 +77,18 @@ export const SearchBar = () => {
       </Row>
       <br />
       <Row>
-          <Col lg="12">
+        <Col lg="12">
           <h3>{message && <p>{message}</p>}</h3>
         </Col>
       </Row>
-        
       <Row>
-        {roomData.slice(0, 4).map((room) => (
-          <Col lg="3" className="mb-4" key={room.id}>
-            <RoomCard room={room} />
-          </Col>
+
+        {roomData.slice(0, 3).map((room) => (
+            <Col lg="4" className="mb-3" key={room.id}>
+              <RoomCard room={room} />
+            </Col>
         ))}
-      </Row>
+        </Row>
     </div>
   );
 };
