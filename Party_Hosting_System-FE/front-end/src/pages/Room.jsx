@@ -4,7 +4,7 @@ import { Container, Row, Col } from "reactstrap";
 import TourCard from "../shared/PlaceCard";
 
 const Room = () => {
-  const itemsPerPage = 8;
+  const itemsPerPage = 9;
   const [roomData, setRoomData] = useState([]);
   const [page, setPage] = useState(0);
 
@@ -40,10 +40,10 @@ const Room = () => {
 
   return (
     < >
-      <Container style={{marginTop:'30px'}}>
+      <Container style={{marginTop:'30px', width: '90%', marginLeft: 'auto', marginRight: 'auto'}}>
         <Row>
           {roomData.slice(startIndex, endIndex).map((room) => (
-            <Col lg="3" className="mb-4" key={room.id}>
+            <Col lg="4" className="mb-4" key={room.id}>
               <TourCard room={room} />
             </Col>
           ))}
