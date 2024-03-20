@@ -33,8 +33,8 @@ const Register = () => {
   const [valid, setValid] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [data, setData] = useState({
-    // staffId: "5",
-    // packageId: "1",
+    staffId: "5",
+    packageId: "1",
     userName: undefined,
     email: undefined,
     password: undefined,

@@ -15,6 +15,7 @@ import Payment from "../../pages/Payment";
 
 const Booking = ({ room, avgRating }) => {
   const { price, reviews } = room;
+  const isLoggedIn = !!sessionStorage.getItem("authToken");
 
   const navigate = useNavigate();
   const [totalAmount, setTotalAmount] = useState(0);
@@ -122,6 +123,10 @@ const Booking = ({ room, avgRating }) => {
     }
 
     setShowTimeInputs(true);
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
     navigate("/food", { state: { credentials: credentials, room: room ,timeBooking: timeBooking} });
     console.log(credentials);
     console.log(room);
