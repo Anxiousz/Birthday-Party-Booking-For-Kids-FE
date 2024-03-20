@@ -83,7 +83,7 @@ export const SearchBar = () => {
       </Row>
       <Row>
 
-        {roomData.slice(0, 3).map((room) => (
+        {roomData.slice(0, 6).map((room) => (
             <Col lg="4" className="mb-3" key={room.id}>
               <RoomCard room={room} />
             </Col>
