@@ -64,7 +64,7 @@ const Register = () => {
       : "https://partyhostingsystems.azurewebsites.net/api/v1/Register/PartyHost";
   // Hàm xử lý submit form
 
-  const validateInput = (userName, email, password, phone, address) => {
+  const validateInput = (userName, email, password, phone, address,birthDay, gender) => {
     // Check if the first letter of each word in the username is uppercase
     const usernameRegex = /^[A-Z][a-z]*(?: [A-Z][a-z]*)*$/;
     if (!usernameRegex.test(userName)) {
@@ -97,6 +97,14 @@ const Register = () => {
       alert("Address cannot be null.");
       return false;
     }
+    if (!birthDay) {
+      alert("Birth day cannot be null.");
+      return false;
+    }
+    if (!gender) {
+      alert("please choice gender.");
+      return false;
+    }
 
     return true;
   };
@@ -110,7 +118,9 @@ const Register = () => {
       data.email,
       data.password,
       data.phone,
-      data.address
+      data.address,
+      data.birthDay,
+      data.gender
     );
     if (!isValid) {
       return;
@@ -292,6 +302,7 @@ const Register = () => {
                 placeholder="Date of Birth"
                 id="birthDay"
                 name="birthDay"
+                required
                 max={
                   new Date(new Date().setDate(new Date().getDate() - 1))
                     .toISOString()

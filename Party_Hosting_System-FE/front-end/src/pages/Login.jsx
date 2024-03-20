@@ -65,7 +65,7 @@ const Login = () => {
       .catch((err) => {
         console.log(err);
         if (err.code === "ERR_BAD_REQUEST") {
-          alert("Please check your email, password or role again!");
+          alert("Please check your email, password again!");
         }
       });
   };
