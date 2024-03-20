@@ -7,6 +7,7 @@ import RoomCard from "../shared/PlaceCard";
 export const SearchBar = () => {
   // const locationRef = useRef("");
   const distanceRef = useRef("");
+  const [message, setMessage] = useState('');
   const maxGroupSizeRef = useRef("");
   const [location, setLocation] = useState("");
   const onChangelocation = (e) => {
@@ -20,8 +21,13 @@ export const SearchBar = () => {
     try {
       const urlSearch = `https://partyhostingsystems.azurewebsites.net/api/v2/Room/SearchRoom/roomName?context=${location}`;
       await axios.post(urlSearch).then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setRoomData(res.data);
+        if (res.data.length === 0) {
+          setMessage("Don't find the room match with value");
+        } else {
+          setMessage('');
+        }
       });
     } catch (error) {
       console.log(location);
@@ -70,6 +76,12 @@ export const SearchBar = () => {
         </Col>
       </Row>
       <br />
+      <Row>
+          <Col lg="12">
+          <h3>{message && <p>{message}</p>}</h3>
+        </Col>
+      </Row>
+        
       <Row>
         {roomData.slice(0, 4).map((room) => (
           <Col lg="3" className="mb-4" key={room.id}>
